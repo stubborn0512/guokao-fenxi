@@ -182,6 +182,9 @@ def parse_list_page(html, url, year):
                 "detail_approved_evidence": "", "detail_applicant_evidence": "",
             }
             records.append(row)
+            # Skip detail pages when the list already has verified per-position approval counts.
+            if row["approved_count_list"] != "":
+                continue
             for anchor in tr.find_all("a", href=True):
                 label = norm(anchor.get_text(" ", strip=True))
                 if not any(k in label for k in ("报名大数据", "职位详情", "历年情况")): continue
