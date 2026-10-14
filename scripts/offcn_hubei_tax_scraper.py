@@ -588,6 +588,22 @@ def main():
     write_csv(outdir / "offcn_hubei_tax_2025_rank_pages_audit.csv", rank_page_audit)
     write_csv(outdir / "offcn_hubei_tax_2025_rank_conflicts.csv", rank_conflicts)
     write_csv(outdir / "offcn_hubei_tax_2025_rank_match_audit.csv", rank_match_audit)
+    focus_codes = {"300110061003", "300110228009", "300110272015"}
+    control_focus = [
+        {
+            "year": row.get("year", ""),
+            "position_code": row.get("position_code", ""),
+            "unit": row.get("unit", ""),
+            "position_name": row.get("position_name", ""),
+            "applicant_count_list": row.get("applicant_count_list", ""),
+            "source_url": row.get("source_url", ""),
+            "row_action_controls_json": row.get("row_action_controls_json", ""),
+            "raw_row_text": row.get("raw_row_text", ""),
+        }
+        for row in all_positions
+        if row.get("year") == 2025 and row.get("position_code") in focus_codes
+    ]
+    write_csv(outdir / "offcn_hubei_tax_2025_unmatched_controls_audit.csv", control_focus)
     qa = {
         "scraped_at": now_iso(), "source": "https://zhiwei.offcn.com/",
         "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
