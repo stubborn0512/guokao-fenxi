@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - ".github/workflows/offcn-hubei-tax-scrape.yml"
+      - "scripts/offcn_hubei_tax_scraper.py"
+      - "requirements-offcn.txt"
   workflow_dispatch:
     inputs:
       skip_details:
