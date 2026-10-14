@@ -35,3 +35,5 @@ jobs:
             git commit -m "Add 2025 Offcn link diagnostics"
             git push
           fi
+
+# Diagnostic workflow version 2: use corrected code regexes.
