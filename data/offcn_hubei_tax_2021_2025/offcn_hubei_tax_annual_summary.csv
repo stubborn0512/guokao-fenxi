@@ -1,0 +1,6 @@
+﻿year,seed_url,expected_positions,expected_recruit_count,site_total_applicant_count,site_total_approved_count,pages_attempted,pages_ok,positions_unique,rows_with_position_level_approved_count,rows_with_position_level_applicant_count,detail_links_unique,status,row_conflicts
+2021,https://zhiwei.offcn.com/gj/2021/bmall7905.html,309,700,,42211,38,38,309,309,0,0,finished_or_page_limit,0
+2022,https://zhiwei.offcn.com/gj/2022/bmall9423_1.html,533,600,58417,48189,70,70,533,533,0,0,finished_or_page_limit,0
+2023,https://zhiwei.offcn.com/gj/2023/bmall9217.html,498,1200,79152,65998,120,120,498,498,0,0,finished_or_page_limit,0
+2024,https://zhiwei.offcn.com/gj/2024/bmall10893.html,462,1070,96949,64548,42,42,462,462,0,0,finished_or_page_limit,0
+2025,https://zhiwei.offcn.com/gj/2025/bmall11865_2.html,537,1100,105140,87202,48,48,537,0,537,0,finished_or_page_limit,0
