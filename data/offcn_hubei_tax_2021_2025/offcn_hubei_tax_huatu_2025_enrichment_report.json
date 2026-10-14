@@ -1,5 +1,50 @@
 {
-  "generated_at": "2026-10-14T15:14:32+00:00",
+  "generated_at": "2026-10-14T15:16:15+00:00",
+  "final_output_total_position_rows": 2339,
+  "final_output_approved_count_filled": 2339,
+  "final_output_approved_count_missing": 0,
+  "final_output_coverage_by_year": {
+    "2021": {
+      "position_records": 309,
+      "approved_count_filled": 309,
+      "approved_count_missing": 0,
+      "approved_count_sources": {
+        "列表页明确过审/合格人数列": 309
+      }
+    },
+    "2022": {
+      "position_records": 533,
+      "approved_count_filled": 533,
+      "approved_count_missing": 0,
+      "approved_count_sources": {
+        "列表页明确过审/合格人数列": 533
+      }
+    },
+    "2023": {
+      "position_records": 498,
+      "approved_count_filled": 498,
+      "approved_count_missing": 0,
+      "approved_count_sources": {
+        "列表页明确过审/合格人数列": 498
+      }
+    },
+    "2024": {
+      "position_records": 462,
+      "approved_count_filled": 462,
+      "approved_count_missing": 0,
+      "approved_count_sources": {
+        "列表页明确过审/合格人数列": 462
+      }
+    },
+    "2025": {
+      "position_records": 537,
+      "approved_count_filled": 537,
+      "approved_count_missing": 0,
+      "approved_count_sources": {
+        "华图公开职位表“合格人数”字段（补充来源；中公2025列表仅提供报考人数）": 537
+      }
+    }
+  },
   "offcn_original_csv": "data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_positions_2021_2025.csv",
   "huatu_public_source_url": "https://ah.huatu.com/zw/hubei/2025_3.html",
   "huatu_table_header": [
