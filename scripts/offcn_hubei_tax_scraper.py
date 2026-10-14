@@ -707,6 +707,19 @@ def main():
             row["applicant_count_final"] = row["detail_applicant_count"]; row["applicant_count_source"] = "职位代码核验后的详情页局部字段"
         else:
             row["applicant_count_final"] = ""; row["applicant_count_source"] = "未取得可核验的逐岗位报名人数"
+    # Recompute year-level coverage from the final enriched records, not the raw list-page fields.
+    for report in annual_reports:
+        year_rows = [row for row in all_positions if row.get("year") == report.get("year")]
+        final_values = [to_int(row.get("approved_count_final", "")) for row in year_rows]
+        valid_values = [value for value in final_values if value != ""]
+        report["rows_with_position_level_approved_count"] = len(valid_values)
+        report["rows_missing_final_approved_count"] = len(year_rows) - len(valid_values)
+        report["sum_position_level_approved_count"] = sum(valid_values)
+        site_total = to_int(report.get("site_total_approved_count", ""))
+        report["position_sum_minus_site_total_approved"] = (
+            sum(valid_values) - site_total if site_total != "" else ""
+        )
+
     write_csv(outdir / "offcn_hubei_tax_positions_2021_2025.csv", all_positions)
     write_csv(outdir / "offcn_hubei_tax_pages_audit.csv", all_page_audits)
     write_csv(outdir / "offcn_hubei_tax_details_audit.csv", detail_audit)
@@ -717,6 +730,11 @@ def main():
     write_csv(outdir / "offcn_hubei_tax_2025_rank_conflicts.csv", rank_conflicts)
     write_csv(outdir / "offcn_hubei_tax_2025_rank_match_audit.csv", rank_match_audit)
     focus_codes = {"300110061003", "300110228009", "300110272015"}
+    focus_codes.update(
+        audit.get("position_code", "")
+        for audit in rank_match_audit
+        if audit.get("match_status") != "matched_unique"
+    )
     control_focus = [
         {
             "year": row.get("year", ""),
@@ -740,10 +758,17 @@ def main():
         "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
         "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
         "years": annual_reports, "total_position_rows": len(all_positions),
+        "total_positions_with_final_approved_count": sum(
+            1 for row in all_positions if row.get("approved_count_final", "") != ""
+        ),
+        "total_missing_final_approved_count": sum(
+            1 for row in all_positions if row.get("approved_count_final", "") == ""
+        ),
         "total_detail_links_seen": len(all_detail_links), "total_detail_pages_audited": len(detail_audit),
         "2025_hubei_rank_report": rank_report, "2025_hubei_rank_match_report": rank_match_report,
         "2025_urljump_source_audit": {"status": urljump_audit.get("status", "not_run"),
                                       "implementation_url": urljump_audit.get("implementation_url", ""),
+                                      "urljump_function": urljump_audit.get("urljump_function", ""),
                                       "script_sources_found": urljump_audit.get("script_sources_found", [])},
         "list_pages_blocked": [r for r in all_page_audits if r["status"] in ("http_403", "http_429", "access_challenge")],
         "limitations": [
