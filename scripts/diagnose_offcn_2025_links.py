@@ -17,7 +17,7 @@ HEADERS = {
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.6",
 }
 def clean(s):
-    return re.sub(r"\\s+", " ", str(s or "")).strip()
+    return re.sub(r"\s+", " ", str(s or "")).strip()
 def main():
     response = requests.get(URL, headers=HEADERS, timeout=30)
     response.raise_for_status()
@@ -26,7 +26,7 @@ def main():
     rows = []
     for tr in soup.find_all("tr"):
         text = clean(tr.get_text(" ", strip=True))
-        codes = re.findall(r"(?<!\\d)\\d{12}(?!\\d)", text)
+        codes = re.findall(r"(?<!\d)\d{12}(?!\d)", text)
         if not set(codes) & CODES:
             continue
         interactions = []
