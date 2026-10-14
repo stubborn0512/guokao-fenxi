@@ -1,0 +1,34 @@
+{
+  "scraped_at": "2026-10-14T12:10:59+00:00",
+  "source": "https://zhiwei.offcn.com/",
+  "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
+  "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
+  "years": [
+    {
+      "year": 2025,
+      "seed_url": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html",
+      "expected_positions": 537,
+      "expected_recruit_count": 1100,
+      "site_total_applicant_count": 105140,
+      "site_total_approved_count": 87202,
+      "pages_attempted": 48,
+      "pages_ok": 48,
+      "positions_unique": 537,
+      "rows_with_position_level_approved_count": 0,
+      "rows_with_position_level_applicant_count": 537,
+      "detail_links_unique": 0,
+      "status": "finished_or_page_limit",
+      "row_conflicts": 0
+    }
+  ],
+  "total_position_rows": 537,
+  "total_detail_links_seen": 0,
+  "total_detail_pages_audited": 0,
+  "list_pages_blocked": [],
+  "limitations": [
+    "中公是第三方职位库，不是招录机关官方原始数据库。",
+    "各年度报名统计时点可能不同；历史报名/过审人数不代表2027实际竞争比。",
+    "网页无逐岗位过审字段且详情页无法在职位代码局部核验时，最终过审人数保持空值。",
+    "未抓到数据不代表0人；不要用年度总数填补逐岗位空值。"
+  ]
+}
