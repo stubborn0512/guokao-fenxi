@@ -48,3 +48,56 @@
 2026-10-14 12:10:57,814 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_46.html rows=0 queue=1
 2026-10-14 12:10:59,107 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_47.html rows=0 queue=0
 2026-10-14 12:10:59,108 [INFO] 年度报告：{"year": 2025, "seed_url": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html", "expected_positions": 537, "expected_recruit_count": 1100, "site_total_applicant_count": 105140, "site_total_approved_count": 87202, "pages_attempted": 48, "pages_ok": 48, "positions_unique": 537, "rows_with_position_level_approved_count": 0, "rows_with_position_level_applicant_count": 537, "detail_links_unique": 0, "status": "finished_or_page_limit", "row_conflicts": 0}
+2026-10-14 12:12:09,286 [INFO] 开始抓取 2025：https://zhiwei.offcn.com/gj/2025/bmall11865_2.html
+2026-10-14 12:12:11,562 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_2.html rows=15 queue=38
+2026-10-14 12:12:13,456 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_36.html rows=12 queue=46
+2026-10-14 12:12:14,848 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_4.html rows=15 queue=45
+2026-10-14 12:12:16,271 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_5.html rows=15 queue=44
+2026-10-14 12:12:17,723 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_3.html rows=15 queue=43
+2026-10-14 12:12:19,129 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_1.html rows=15 queue=42
+2026-10-14 12:12:20,523 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865.html rows=15 queue=41
+2026-10-14 12:12:21,955 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_6.html rows=15 queue=40
+2026-10-14 12:12:23,346 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_7.html rows=15 queue=39
+2026-10-14 12:12:24,740 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_8.html rows=15 queue=38
+2026-10-14 12:12:26,150 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_9.html rows=15 queue=37
+2026-10-14 12:12:27,549 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_10.html rows=15 queue=36
+2026-10-14 12:12:28,946 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_11.html rows=15 queue=35
+2026-10-14 12:12:30,385 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_12.html rows=15 queue=34
+2026-10-14 12:12:31,799 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_13.html rows=15 queue=33
+2026-10-14 12:12:33,197 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_14.html rows=15 queue=32
+2026-10-14 12:12:34,595 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_15.html rows=15 queue=31
+2026-10-14 12:12:35,984 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_16.html rows=15 queue=30
+2026-10-14 12:12:37,414 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_17.html rows=15 queue=29
+2026-10-14 12:12:38,804 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_18.html rows=15 queue=28
+2026-10-14 12:12:40,222 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_19.html rows=15 queue=27
+2026-10-14 12:12:41,642 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_20.html rows=15 queue=26
+2026-10-14 12:12:43,034 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_21.html rows=15 queue=25
+2026-10-14 12:12:44,503 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_22.html rows=15 queue=24
+2026-10-14 12:12:45,935 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_23.html rows=15 queue=23
+2026-10-14 12:12:47,377 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_24.html rows=15 queue=22
+2026-10-14 12:12:48,793 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_25.html rows=15 queue=21
+2026-10-14 12:12:50,196 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_26.html rows=15 queue=20
+2026-10-14 12:12:51,624 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_27.html rows=15 queue=19
+2026-10-14 12:12:53,051 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_28.html rows=15 queue=18
+2026-10-14 12:12:54,468 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_29.html rows=15 queue=17
+2026-10-14 12:12:55,856 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_30.html rows=15 queue=16
+2026-10-14 12:12:57,263 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_31.html rows=15 queue=15
+2026-10-14 12:12:58,660 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_32.html rows=15 queue=14
+2026-10-14 12:13:00,093 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_33.html rows=15 queue=13
+2026-10-14 12:13:01,531 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_34.html rows=15 queue=12
+2026-10-14 12:13:02,930 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_35.html rows=15 queue=11
+2026-10-14 12:13:04,287 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_37.html rows=0 queue=10
+2026-10-14 12:13:05,644 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_38.html rows=0 queue=9
+2026-10-14 12:13:07,042 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_39.html rows=0 queue=8
+2026-10-14 12:13:08,404 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_40.html rows=0 queue=7
+2026-10-14 12:13:09,770 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_41.html rows=0 queue=6
+2026-10-14 12:13:11,138 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_42.html rows=0 queue=5
+2026-10-14 12:13:12,504 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_43.html rows=0 queue=4
+2026-10-14 12:13:13,859 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_44.html rows=0 queue=3
+2026-10-14 12:13:15,244 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_45.html rows=0 queue=2
+2026-10-14 12:13:16,623 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_46.html rows=0 queue=1
+2026-10-14 12:13:18,011 [INFO] [2025] https://zhiwei.offcn.com/gj/2025/bmall11865_47.html rows=0 queue=0
+2026-10-14 12:13:18,012 [INFO] 年度报告：{"year": 2025, "seed_url": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html", "expected_positions": 537, "expected_recruit_count": 1100, "site_total_applicant_count": 105140, "site_total_approved_count": 87202, "pages_attempted": 48, "pages_ok": 48, "positions_unique": 537, "rows_with_position_level_approved_count": 0, "rows_with_position_level_applicant_count": 537, "detail_links_unique": 0, "status": "finished_or_page_limit", "row_conflicts": 0}
+2026-10-14 12:13:18,012 [INFO] 2025 列表未提供逐岗位过审人数，改用中公湖北职位竞争比排行榜进行交叉补数。
+2026-10-14 12:14:38,571 [INFO] 2025 排行榜报告：{"status": "completed", "source_url": "https://zhiwei.offcn.com/gj/zwph/2025_jzb_hu.html", "expected_rows": 855, "expected_pages": 57, "pages_attempted": 58, "pages_ok": 58, "parsed_rank_rows_before_dedupe": 855, "rank_rows_unique": 849, "row_conflicts": 0, "matching_rule": "unit + position name + recruiting count + applicant count; exact match only for automatic fill"}
+2026-10-14 12:14:38,572 [INFO] 2025 匹配报告：{"target_rows_2025": 537, "unique_matched": 534, "ambiguous": 0, "unmatched": 3}

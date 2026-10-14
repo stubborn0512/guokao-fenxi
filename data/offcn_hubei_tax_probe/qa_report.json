@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-10-14T12:10:59+00:00",
+  "scraped_at": "2026-10-14T12:14:38+00:00",
   "source": "https://zhiwei.offcn.com/",
   "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
   "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
@@ -24,6 +24,24 @@
   "total_position_rows": 537,
   "total_detail_links_seen": 0,
   "total_detail_pages_audited": 0,
+  "2025_hubei_rank_report": {
+    "status": "completed",
+    "source_url": "https://zhiwei.offcn.com/gj/zwph/2025_jzb_hu.html",
+    "expected_rows": 855,
+    "expected_pages": 57,
+    "pages_attempted": 58,
+    "pages_ok": 58,
+    "parsed_rank_rows_before_dedupe": 855,
+    "rank_rows_unique": 849,
+    "row_conflicts": 0,
+    "matching_rule": "unit + position name + recruiting count + applicant count; exact match only for automatic fill"
+  },
+  "2025_hubei_rank_match_report": {
+    "target_rows_2025": 537,
+    "unique_matched": 534,
+    "ambiguous": 0,
+    "unmatched": 3
+  },
   "list_pages_blocked": [],
   "limitations": [
     "中公是第三方职位库，不是招录机关官方原始数据库。",
