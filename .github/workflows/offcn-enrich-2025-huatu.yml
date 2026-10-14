@@ -48,3 +48,5 @@ jobs:
           path: data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025*
           if-no-files-found: warn
           retention-days: 14
+
+# Rebuild coverage metrics after enrichment reporting update.
