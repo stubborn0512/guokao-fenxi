@@ -1,58 +1,139 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>2027国考襄阳周边岗位｜同岗历史进面分</title>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2027 国考湖北岗位分析</title>
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#64748b;--line:#dde4ef;--blue:#315cba;--green:#167456;--amber:#95540b;--red:#9f3030}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif}header{background:#14233e;color:#fff;padding:30px max(18px,calc((100vw - 1240px)/2)) 26px}header .eyebrow{color:#bac9e9;letter-spacing:.08em;font-size:12px}h1{font-size:clamp(25px,3vw,38px);line-height:1.2;margin:8px 0 12px}header p{max-width:900px;margin:0;color:#d9e3f5}.wrap{max-width:1240px;margin:22px auto;padding:0 16px 50px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px;box-shadow:0 4px 14px #15274708}.num{font-size:27px;font-weight:750}.muted{color:var(--muted);font-size:12px}.section{margin-top:18px}.section h2{font-size:19px;margin:0 0 10px}.note{border-left:3px solid var(--blue);padding:10px 12px;background:#edf3ff;border-radius:0 8px 8px 0}.warn{border-left-color:#be7b20;background:#fff6e8}.bad{border-left-color:#a83d3d;background:#fff0f0}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.toolbar input,.toolbar select{padding:10px;border-radius:8px;border:1px solid #cbd5e1;background:white;min-width:145px}.btn{display:inline-block;padding:8px 10px;border:1px solid var(--line);border-radius:8px;color:#1e3a8a;text-decoration:none;background:white;cursor:pointer}.btn:hover{border-color:#8aa6e6}.tablebox{border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:590px;background:#fff}table{border-collapse:collapse;width:100%;font-size:12px}td,th{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f7f9fc;position:sticky;top:0;white-space:nowrap;color:#455268}td.score{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.pill{display:inline-block;padding:3px 7px;border-radius:6px;background:#e8eefb;color:#2148a0;font-size:11px}.pill.warn{background:#fff0d8;color:#92530a}.pill.bad{background:#ffebeb;color:#992d2d}.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px}.barrow{display:grid;grid-template-columns:minmax(150px,1fr) 2fr 54px;gap:9px;align-items:center;margin:11px 0;font-size:12px}.track{height:14px;background:#edf1f7;border-radius:30px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:30px}.bar.warn{background:#d58a22}.bar.bad{background:#a83d3d}.links{display:flex;flex-wrap:wrap;gap:8px}.fine{font-size:12px;color:var(--muted)}footer{font-size:12px;color:var(--muted);margin-top:20px}.summaryrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:850px){.cards{grid-template-columns:repeat(2,1fr)}.charts,.summaryrow{grid-template-columns:1fr}.wrap{padding:0 10px 36px}.barrow{grid-template-columns:110px 1fr 45px}}@media(max-width:430px){.cards{grid-template-columns:1fr 1fr}.num{font-size:23px}}
-</style></head><body>
-<header><div class="eyebrow">2027 国考选岗 · 湖北襄阳与周边</div><h1>同岗历史进面分核对台</h1><p>按你的条件筛选：计算机科学与技术本科应届生、湖北、男性、共青团员、CET-4 已通过、县区可接受、公安岗位暂不优先。核心原则：不把“同单位/同名”冒充“同一岗位”，不硬编五年预测分。</p></header>
-<main class="wrap">
-<div class="cards">
-<div class="card"><div class="muted">本轮候选岗位</div><div class="num" id="nJobs">18</div><div class="muted">襄阳及周边</div></div>
-<div class="card"><div class="muted">2022–2025 严格标识历史分</div><div class="num" id="nHist">6</div><div class="muted">同代码+招录机关+司局+职位名</div></div>
-<div class="card"><div class="muted">2026 同标识分数记录</div><div class="num" id="n2026">8</div><div class="muted">仍需逐项核资格条件</div></div>
-<div class="card"><div class="muted">同名异代码参照记录</div><div class="num" id="nSimilar">30</div><div class="muted">不并入同岗分数序列</div></div>
+:root{--navy:#123447;--teal:#0e766e;--line:#d9e3e8;--bg:#f3f7f8;--ink:#172f3a;--muted:#607681;--amber:#fff3d8;--red:#8b3428}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+header{background:var(--navy);color:#fff;padding:30px max(18px,calc((100vw - 1320px)/2)) 26px}header .kicker{font-size:12px;letter-spacing:.08em;color:#b8d5dc}h1{font-size:clamp(24px,3.4vw,36px);margin:8px 0}header p{max-width:900px;margin:8px 0;color:#dce8eb}
+main{max-width:1320px;margin:18px auto 40px;padding:0 16px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 2px 7px #12344708}.stat .label{font-size:12px;color:var(--muted)}.stat .n{font-weight:800;font-size:28px;color:var(--teal);margin:4px 0}.stat .note{font-size:12px;color:var(--muted)}
+.section{margin-top:16px}.section h2{margin:0 0 12px;font-size:20px}.notice{background:#fff8e8;border:1px solid #f1d7a1;border-radius:10px;padding:12px 14px;margin:15px 0;color:#594319}
+.filters{display:grid;grid-template-columns:minmax(250px,2fr) repeat(3,minmax(150px,1fr));gap:9px;margin:12px 0}.filters input,.filters select{width:100%;border:1px solid #c8d6dc;border-radius:8px;background:#fff;padding:10px;color:var(--ink);font:inherit}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 14px}.btn{display:inline-block;border:1px solid var(--teal);padding:8px 12px;border-radius:8px;color:var(--teal);background:#fff;text-decoration:none;cursor:pointer;font-size:13px}.btn:hover{background:#e8f6f3}.counter{color:var(--muted);font-size:13px;margin:6px 0 10px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px;max-height:850px;background:white}table{border-collapse:collapse;width:100%;min-width:1160px;font-size:13px}th,td{border-bottom:1px solid #e7eef1;padding:10px 9px;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#eaf2f4;color:#274653;z-index:1;white-space:nowrap}tr:hover td{background:#f8fbfc}.title{font-weight:750}.muted{font-size:12px;color:var(--muted);margin-top:4px}.score{font-size:18px;font-weight:800;color:var(--teal);white-space:nowrap}.range{font-size:12px;color:#46606c;white-space:nowrap}.tag{display:inline-block;padding:3px 7px;border-radius:99px;background:#e3f5f0;color:#0c6258;font-size:11px;margin:2px 2px 2px 0}.tag.warn{background:#fff0cf;color:#7b4d00}.tag.low{background:#fde7e4;color:#8b3428}.details{margin-top:6px}.details summary{cursor:pointer;color:#0f6d73;font-size:12px}.details div{margin-top:6px;max-width:520px;white-space:normal}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.two ul{padding-left:20px;margin:6px 0}.two li{margin:5px 0}.method{font-size:13px;color:#304b57}footer{margin-top:18px;color:var(--muted);font-size:12px}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}header{padding-top:22px}}@media(max-width:500px){.filters{grid-template-columns:1fr}.stat .n{font-size:24px}.card{padding:12px}}
+</style></head>
+<body>
+<header><div class="kicker">国考选岗 · 数据可追溯 · 2026-10</div>
+<h1>2027 国考湖北省岗位分析</h1>
+<p>面向计算机科学与技术本科应届生、共青团员、男性；按已知条件筛选湖北全省岗位，公安类按个人偏好降低优先级。展示2021—2025年同系统、同职能历史岗位分数作为参考。</p></header>
+<main>
+<div class="stats">
+<div class="card stat"><div class="label">候选岗位</div><div class="n" id="kJobs">114</div><div class="note">省内职位代码级记录，经复合键校核</div></div>
+<div class="card stat"><div class="label">招录名额</div><div class="n" id="kHires">235</div><div class="note">仅统计主清单</div></div>
+<div class="card stat"><div class="label">英语门槛待核验</div><div class="n">10</div><div class="note">你的四级具体分数尚未确认</div></div>
+<div class="card stat"><div class="label">英语或户籍/生源需核验</div><div class="n">13</div><div class="note">其中6个岗位有明确属地限制</div></div>
 </div>
+<div class="notice"><b>先看这条：</b>主清单代表基础资格初筛，不代表官方最终资格认定。你说通过四级但没有提供分数，因此 CET-4≥425/710 的岗位不能直接视为符合；6个明确要求特定城市户籍/生源的职位也须按你的真实情况复核。另有1个要求 CET-6 的职位（2个名额）暂时不纳入主清单，详情在“条件核验与排除”。</div>
 <div class="section card">
-<h2>先读结论：目前不能诚实地给出“近五年完全同条件趋势线”</h2>
-<div class="note"><b>严格匹配规则：</b>每条历史记录须同时匹配「招录机关 + 用人司局 + 招考职位 + 职位代码」。历史面试名单通常按考生重复列出最低分，先按这四个字段去重；职位代码本身并非全国唯一键。</div>
-<p>更重要的是：你提供的 2019–2025 历史分数表没有同时保留每年完整的专业、学历、应届、性别及其他资格限制。因此，即便代码和职位名称吻合，也只能称为“标识一致的历史分”，不能宣称五年资格条件完全相同。2022–2025 这 4 个年度里，18 个候选职位只有随州税务的 3 个职位找到了各两年严格标识记录；襄阳多数职位没有严格同标识历史分。</p>
-<div class="note warn"><b>不要误读：</b>下表 2026 栏的分数首先是“同标识记录”，不是自动等于“同条件可比”。专业范围、招录人数或性别限制明显变化的分数会标为不可作同条件预测。金融监管岗位的专业科目与总分口径不与普通税务岗位混排。</div>
+<h2>筛选全部候选岗位</h2>
+<div class="filters">
+<input id="q" placeholder="搜索城市、单位、职位、专业、代码…">
+<select id="system"><option value="">全部系统</option></select>
+<select id="confidence"><option value="">全部历史匹配可信度</option><option value="较高">较高</option><option value="中等">中等</option><option value="较低">较低</option></select>
+<select id="check"><option value="">全部资格提示</option><option value="hard">硬性条件需核验</option><option value="police">公安类低优先</option><option value="professional">需专业测试/专业科目</option></select>
 </div>
-<div class="section charts">
-<div class="card"><h2>2026 税务岗位同标识分数（不是统一录取线）</h2><p class="muted">仅绘制已查到的税务岗位分数，并用颜色标出条件可比性；金融监管分数不放入此图。</p><div id="scoreChart"></div><p class="fine">分数来自公开汇总页面，链接见数据表。若专业/招录人数/性别条件改变，需把分数视为历史标识参考，而非今年精准门槛。</p></div>
-<div class="card"><h2>数据可信度分层</h2><div class="barrow"><div>严格标识历史（2022–25）</div><div class="track"><div class="bar" style="width:20%"></div></div><b>6 条</b></div><div class="barrow"><div>2026 同标识记录</div><div class="track"><div class="bar warn" style="width:40%"></div></div><b>8 条</b></div><div class="barrow"><div>同名但不同代码</div><div class="track"><div class="bar bad" style="width:100%"></div></div><b>30 条</b></div><p class="muted">条数不是竞争强度。它表达的是匹配证据层级，而不是上岸难度排序。</p></div>
+<div class="actions">
+<a class="btn" href="data/hubei_candidates_2027.csv" download>下载全省候选岗位 CSV</a>
+<a class="btn" href="data/annual_reference_2021_2025.csv" download>下载年度参考分 CSV</a>
+<a class="btn" href="data/condition_audit_2027.csv" download>下载条件核验/排除 CSV</a>
+<a class="btn" href="https://bm.scs.gov.cn/kl2027" target="_blank" rel="noopener">官方职位表入口</a>
 </div>
-<div class="section card">
-<h2>候选岗位：2022–2026 严格标识进面分</h2>
-<div class="toolbar"><input id="search" placeholder="搜单位、代码或职位名"><select id="loc"><option value="">全部地区</option><option value="襄阳">襄阳</option><option value="随州">随州</option><option value="荆门">荆门</option></select><select id="kind"><option value="">全部单位类型</option><option value="税务局">税务</option><option value="金融监督管理总局">金融监管</option></select><a class="btn" href="data/strict_cutoff_2022_2026.csv" download>下载严格分数 CSV</a></div>
-<div class="tablebox"><table><thead><tr><th>单位 / 职位</th><th>代码</th><th>招录人数</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th><th>匹配及资格条件说明</th><th>来源</th></tr></thead><tbody id="strictRows"></tbody></table></div>
-<p class="fine">空白表示没有检索到满足严格标识规则的记录，绝不是 0 分。页面不以同单位的其他职位分数填空。</p>
+<div class="counter" id="count">正在加载数据…</div>
+<div class="tablewrap"><table><thead><tr>
+<th>地区 / 系统</th><th>职位与条件</th><th>代码 / 名额</th><th>近五年类比参考分</th><th>2021—2025 年度参考</th><th>匹配可信度</th><th>核验提醒 / 更多</th>
+</tr></thead><tbody id="rows"><tr><td colspan="7">正在加载候选岗位表…</td></tr></tbody></table></div>
 </div>
-<div class="section card">
-<h2>相似岗位附表：同单位、同职位名，但职位代码不同</h2>
-<div class="note warn">这些记录帮助了解“同名岗位可能怎样波动”，但因职位代码不同，无法仅凭名称证明它是同一个岗位；它们不并入上方严格历史序列，也不用于自动预测。</div>
-<div class="toolbar"><input id="nearSearch" placeholder="搜索目标职位、年份或历史代码"><a class="btn" href="data/similar_not_exact.csv" download>下载相似岗位 CSV</a></div>
-<div class="tablebox"><table><thead><tr><th>2027 目标单位/职位</th><th>目标代码</th><th>历史年份</th><th>历史代码</th><th>历史最低进面分</th><th>匹配说明</th></tr></thead><tbody id="nearRows"></tbody></table></div>
+<div class="section two">
+<div class="card"><h2>怎么读历史进面分</h2><ul>
+<li>“近五年类比中位参考”是有可比数据年度的年度中位分再取中位数，不是保证分数，也不是上岸概率。</li>
+<li>P20/P80 是已匹配历史岗位最低进面分的样本分位数范围，不是统计置信区间。</li>
+<li>优先同司局/驻地+同职能；不足时退到湖北同系统/同职能或明确标注的相近职能；再不足才跨省同系统补样。</li>
+<li>不同系统或考试类别的分数不可直接横向排名；公安、金融监管、税务、审计等应各自在本系统内比较。</li>
+</ul></div>
+<div class="card"><h2>数据质量与边界</h2><ul>
+<li>历史分数来自用户上传的压缩包。已按年度、部门代码、职位代码、招录机关、司局、职位名的复合键清洗重复行，并审计分数冲突。</li>
+<li>历史工作簿未包含逐行官方网页URL，因此内部复核不等于已在官网逐条复核。</li>
+<li>3个本科专业细化后不接受计算机科学与技术的职位已剔除，共4个名额；1个CET-6待确认职位单独列出，共2个名额。</li>
+<li>税务岗位常见最低服务年限5年；其他岗位可能要求经常出差、专业科目、体能测试或专业能力测试，请逐条看备注。</li>
+</ul></div>
 </div>
-<div class="section summaryrow">
-<div class="card"><h2>资格条件变化核对（2026→2027）</h2><p class="muted">哪怕代码和单位名称一致，资格池改变也会影响分数可比性。</p><div class="tablebox"><table><thead><tr><th>代码 / 单位</th><th>2026 分</th><th>资格条件变化与解释</th><th>来源</th></tr></thead><tbody id="conditionRows"></tbody></table></div><a class="btn" href="data/2026_condition_comparison.csv" download>下载条件对照 CSV</a></div>
-<div class="card"><h2>同代码但不同司局：已剔除的错误匹配</h2><p class="muted">职位代码不能单独识别全国职位。同代码但单位或地点不同，不是同一岗位。</p><div class="tablebox"><table><thead><tr><th>目标职位</th><th>误匹配到的单位</th><th>分数</th><th>剔除原因</th></tr></thead><tbody id="collisionRows"></tbody></table></div><a class="btn" href="data/2026_code_collisions_excluded.csv" download>下载剔除记录</a></div>
-</div>
-<div class="section card"><h2>口径、来源与限制</h2><ul><li>2019–2025 分数从用户上传的历年国考面试名单/最低进面分表中提取；本页面只展示 2022–2025 及可核验的 2026 数据。</li><li>历史去重的复合键为“招录机关+用人司局+招考职位+职位代码”，避免同代码跨机关重复覆盖，并去除同一岗位因考生行重复造成的计数膨胀。</li><li>上方分数只代表最低进面分，不是最终录取分，更不是上岸概率；当年度笔试难度、名额和考生质量均会影响分数。</li><li>2026 数据来自公开分数汇总网页（逐岗位来源链接已列）。这是第三方网页，不冒充官方原始名单；报考决策前请复核职位原始页面/官方数据。</li><li>共青团员不等于中共党员；CET-4“通过”不自动证明达到 425 分；最终资格以 2027 官方职位表、报考指南及招录机关解释为准。</li></ul><div class="links"><a class="btn" href="data/strict_cutoff_2022_2026.csv" download>严格匹配数据</a><a class="btn" href="data/similar_not_exact.csv" download>相似岗位附表</a><a class="btn" href="data/2026_condition_comparison.csv" download>2026 条件对照</a><a class="btn" href="data/2026_code_collisions_excluded.csv" download>错误匹配剔除表</a><a class="btn" href="METHODOLOGY.md">查看完整方法说明</a><a class="btn" href="https://github.com/stubborn0512/guokao-fenxi">GitHub 仓库</a></div></div>
-<footer>此网页仅用于辅助分析，不替代官方职位审核。缺失值保持为空；不以同单位均值或分位数制造所谓的“同岗预测线”。</footer>
+<footer>数据版本：2026-10-14。<a href="METHODOLOGY.md">完整方法说明</a> · <a href="README.md">项目说明</a>。职位资格最终以国家公务员局招考简章及招录机关的官方解释为准。</footer>
 </main>
 <script>
-const files={strict:'data/strict_cutoff_2022_2026.csv',near:'data/similar_not_exact.csv',condition:'data/2026_condition_comparison.csv',collision:'data/2026_code_collisions_excluded.csv'};
-function parseCSV(text){text=text.replace(/^\uFEFF/,'');const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++;}else if(c==='"'){quoted=false;}else cell+=c;}else{if(c==='"'){quoted=true;}else if(c===','){row.push(cell);cell='';}else if(c==='\n'){row.push(cell.replace(/\r$/,''));rows.push(row);row=[];cell='';}else cell+=c;}}if(cell.length||row.length){row.push(cell.replace(/\r$/,''));rows.push(row);}const headers=rows.shift()||[];return rows.filter(r=>r.length>1).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])));}
-async function load(path){const r=await fetch(path);if(!r.ok)throw new Error('读取 '+path+' 失败');return parseCSV(await r.text());}
-function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-let strict=[],near=[],conditions=[],collisions=[];
-function scoreCell(s){return s?'<td class="score">'+esc(s)+'</td>':'<td class="score muted">—</td>';}
-function renderStrict(){const q=document.getElementById('search').value.toLowerCase(),loc=document.getElementById('loc').value,kind=document.getElementById('kind').value;const rows=strict.filter(r=>(!q||Object.values(r).join(' ').toLowerCase().includes(q))&&(!loc||r['工作地点'].includes(loc))&&(!kind||r['用人司局'].includes(kind)));document.getElementById('strictRows').innerHTML=rows.map(r=>'<tr><td><b>'+esc(r['用人司局'])+'</b><br>'+esc(r['职位名称'])+'<br><span class="muted">'+esc(r['工作地点'])+'</span><br><span class="muted">专业：'+esc(r['2027专业要求'])+'</span><br><span class="muted">学历：'+esc(r['2027学历要求'])+'</span><br><span class="muted">备注：'+esc(r['2027资格备注'])+'</span></td><td>'+esc(r['职位代码'])+'</td><td>'+esc(r['招录人数'])+'</td>'+['2022严格标识匹配分','2023严格标识匹配分','2024严格标识匹配分','2025严格标识匹配分','2026同标识分数'].map(k=>scoreCell(r[k])).join('')+'<td><span class="pill '+((r['2026可比性判断']||'').includes('不具备')||(r['2026可比性判断']||'').includes('剔除')?'bad':(r['2026可比性判断']||'').includes('变化')?'warn':'')+'">'+esc(r['2026可比性判断']||'未检索到同标识分数')+'</span><br>'+esc(r['匹配说明'])+'</td><td>'+(r['2026分数来源']?'<a href="'+esc(r['2026分数来源'])+'" target="_blank" rel="noopener">来源</a>':'<span class="muted">无同标识来源</span>')+'</td></tr>').join('');}
-function renderNear(){const q=document.getElementById('nearSearch').value.toLowerCase();const rows=near.filter(r=>!q||Object.values(r).join(' ').toLowerCase().includes(q));document.getElementById('nearRows').innerHTML=rows.map(r=>'<tr><td><b>'+esc(r['目标用人司局'])+'</b><br>'+esc(r['目标职位名称'])+'</td><td>'+esc(r['2027目标职位代码'])+'</td><td>'+esc(r['历史年份'])+'</td><td>'+esc(r['历史职位代码'])+'</td><td class="score">'+esc(r['历史最低进面分'])+'</td><td>'+esc(r['匹配类型'])+'<br>'+esc(r['说明'])+'</td></tr>').join('');}
-function renderCondition(){document.getElementById('conditionRows').innerHTML=conditions.map(r=>'<tr><td><b>'+esc(r['用人司局'])+'</b><br>'+esc(r['职位代码'])+'<br>'+esc(r['职位名称'])+'</td><td class="score">'+esc(r['2026最低进面分'])+'</td><td>'+esc(r['可比性结论'])+'<br><span class="muted">2026：'+esc(r['2026专业要求'])+'<br>2027：'+esc(r['2027专业要求'])+'</span></td><td><a href="'+esc(r['来源'])+'" target="_blank" rel="noopener">来源</a></td></tr>').join('');}
-function renderCollision(){document.getElementById('collisionRows').innerHTML=collisions.map(r=>'<tr><td><b>'+esc(r['2027目标用人司局'])+'</b><br>'+esc(r['2027目标职位代码'])+'</td><td>'+esc(r['2026同代码对应单位'])+'</td><td class="score">'+esc(r['2026分数'])+'</td><td>'+esc(r['剔除原因'])+'</td></tr>').join('');}
-function renderChart(){const rows=strict.filter(r=>r['2026同标识分数']&&r['用人司局'].includes('税务局'));document.getElementById('scoreChart').innerHTML=rows.map(r=>{const score=Number(r['2026同标识分数']);const status=r['2026可比性判断']||'';let cls=status.includes('不具备')||status.includes('显著变化')?'bad':status.includes('核验')?'warn':'bar';return '<div class="barrow"><div>'+esc(r['用人司局'].replace('国家税务总局',''))+'</div><div class="track"><div class="bar '+(cls==='bar'?'':cls)+'" style="width:'+Math.max(2,Math.min(100,score/150*100))+'%"></div></div><b>'+score.toFixed(1)+'</b><div class="muted" style="grid-column:1/-1">'+esc(r['职位名称'])+'；'+esc(status)+'</div></div>';}).join('')||'<p class="muted">暂无数据</p>';}
-Promise.all([load(files.strict),load(files.near),load(files.condition),load(files.collision)]).then(v=>{[strict,near,conditions,collisions]=v;document.getElementById('nJobs').textContent=strict.length;document.getElementById('nHist').textContent=strict.reduce((n,r)=>n+['2022严格标识匹配分','2023严格标识匹配分','2024严格标识匹配分','2025严格标识匹配分'].filter(k=>r[k]).length,0);document.getElementById('n2026').textContent=strict.filter(r=>r['2026同标识分数']).length;document.getElementById('nSimilar').textContent=near.length;renderStrict();renderNear();renderCondition();renderCollision();renderChart();['search','loc','kind'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',renderStrict));document.getElementById('nearSearch').addEventListener('input',renderNear);}).catch(e=>{document.getElementById('strictRows').innerHTML='<tr><td colspan="10">数据加载失败：'+esc(e.message)+'。请从仓库文件链接下载 CSV，或稍后重试。</td></tr>';});
+let jobs=[], headers=[];
+function parseCSV(text){
+  text=text.replace(/^\uFEFF/,'');
+  const rows=[];let row=[],field='',quoted=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(quoted){
+      if(ch==='"'&&text[i+1]==='"'){field+='"';i++}
+      else if(ch==='"') quoted=false;
+      else field+=ch;
+    }else{
+      if(ch==='"') quoted=true;
+      else if(ch===','){row.push(field);field=''}
+      else if(ch==='\n'){row.push(field);rows.push(row);row=[];field=''}
+      else if(ch==='\r'){}
+      else field+=ch;
+    }
+  }
+  if(field.length||row.length){row.push(field);rows.push(row)}
+  return rows.filter(r=>r.some(v=>v!==''));
+}
+function escapeHTML(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function val(x,k){return x[k]||''}
+function locationGroup(x){const s=val(x,'地区/辖区说明')+' '+val(x,'公告工作地点');const m=s.match(/湖北省(.{2,5}?市|.{2,5}?州|神农架林区|天门市|仙桃市|潜江市)/);return m?m[1]:s}
+function needsHardCheck(x){return String(val(x,'英语条件核验')).indexOf('需核验')>=0 || (String(val(x,'户籍/生源条件核验'))!=='' && String(val(x,'户籍/生源条件核验')).indexOf('未识别到额外户籍/生源限制')<0)}
+function render(){
+ const q=document.getElementById('q').value.trim().toLowerCase();
+ const sys=document.getElementById('system').value;
+ const cf=document.getElementById('confidence').value;
+ const ck=document.getElementById('check').value;
+ const filtered=jobs.filter(x=>{
+   const hay=[x['地区/辖区说明'],x['公告工作地点'],x['系统类别'],x['部门名称'],x['用人司局'],x['招考职位'],x['职位代码'],x['专业要求原文'],x['职位备注原文']].join(' ').toLowerCase();
+   if(q&&!hay.includes(q))return false;
+   if(sys&&x['系统类别']!==sys)return false;
+   if(cf&&!String(x['匹配可信度']).includes(cf))return false;
+   if(ck==='hard'&&!needsHardCheck(x))return false;
+   if(ck==='police'&&!String(x['岗位优先提示']).includes('公安'))return false;
+   if(ck==='professional'&&!String(x['岗位优先提示']).includes('专业'))return false;
+   return true;
+ });
+ document.getElementById('count').textContent='当前 '+filtered.length+' / '+jobs.length+' 个岗位；招录名额 '+filtered.reduce((a,x)=>a+(Number(x['招录人数'])||0),0)+' 人。分数仅限同系统和标注的可比样本解读。';
+ const tbody=document.getElementById('rows');
+ if(!filtered.length){tbody.innerHTML='<tr><td colspan="7">没有找到符合筛选条件的岗位。</td></tr>';return}
+ let html='';
+ for(const x of filtered){
+   const years=['2021','2022','2023','2024','2025'].map(y=>y+'：'+(x[y+'参考中位分']||'—')).join(' · ');
+   const conf=String(val(x,'匹配可信度'));
+   const confClass=conf.includes('较低')?'low':(conf.includes('中等')?'warn':'');
+   const med=val(x,'近五年类比中位参考');
+   const score=med!==''?'<div class="score">'+escapeHTML(Number(med).toFixed(2))+'</div><div class="range">P20 '+escapeHTML(val(x,'类比样本P20')||'—')+' / P80 '+escapeHTML(val(x,'类比样本P80')||'—')+'</div>':'暂无足够可比样本';
+   const caution=needsHardCheck(x)?'<span class="tag warn">硬性条件待核验</span>':'';
+   const police=String(val(x,'岗位优先提示')).includes('公安')?'<span class="tag low">公安低优先</span>':'';
+   const pro=String(val(x,'岗位优先提示')).includes('专业')?'<span class="tag warn">专业测试/专业科目</span>':'';
+   const details='<details class="details"><summary>展开条件与匹配口径</summary><div><b>学历/学位：</b>'+escapeHTML(val(x,'学历要求'))+'；'+escapeHTML(val(x,'学位要求'))+'</div><div><b>专业：</b>'+escapeHTML(val(x,'专业要求原文'))+'</div><div><b>政治面貌：</b>'+escapeHTML(val(x,'政治面貌要求'))+'；<b>考试类别：</b>'+escapeHTML(val(x,'考试类别'))+'；<b>面试比例：</b>'+escapeHTML(val(x,'面试人员比例'))+'</div><div><b>英语：</b>'+escapeHTML(val(x,'英语条件核验'))+'</div><div><b>户籍/生源：</b>'+escapeHTML(val(x,'户籍/生源条件核验'))+'</div><div><b>其他限制：</b>'+escapeHTML(val(x,'其他关键限制'))+'</div><div><b>匹配年度/样本：</b>'+escapeHTML(val(x,'年度匹配层级摘要'))+'；历史样本 '+escapeHTML(val(x,'选定历史岗位样本数合计'))+' 个</div><div><b>原始职位表备注：</b>'+escapeHTML(val(x,'职位备注原文'))+'</div></details>';
+   html+='<tr><td>'+escapeHTML(val(x,'地区/辖区说明'))+'<div class="muted">'+escapeHTML(val(x,'系统类别'))+' · '+escapeHTML(val(x,'考试类别'))+'</div><div class="muted">'+escapeHTML(locationGroup(x))+'</div></td><td><div class="title">'+escapeHTML(val(x,'用人司局'))+'</div><div>'+escapeHTML(val(x,'招考职位'))+'</div><div class="muted">'+escapeHTML(val(x,'岗位优先提示'))+'</div></td><td><b>'+escapeHTML(val(x,'职位代码'))+'</b><div class="muted">招录 '+escapeHTML(val(x,'招录人数'))+' 人</div></td><td>'+score+'</td><td><div class="muted">'+escapeHTML(years)+'</div></td><td><span class="tag '+confClass+'">'+escapeHTML(conf.split('（')[0])+'</span><div class="muted">'+escapeHTML(conf)+'</div></td><td>'+caution+police+pro+details+'</td></tr>';
+ }
+ tbody.innerHTML=html;
+}
+async function load(){
+ try{
+   const res=await fetch('data/hubei_candidates_2027.csv',{cache:'no-store'});
+   if(!res.ok)throw new Error('岗位CSV加载失败：HTTP '+res.status);
+   const parsed=parseCSV(await res.text());headers=parsed.shift()||[];
+   jobs=parsed.map(row=>{const x={};headers.forEach((h,i)=>x[h]=row[i]||'');return x});
+   document.getElementById('kJobs').textContent=jobs.length;
+   document.getElementById('kHires').textContent=jobs.reduce((a,x)=>a+(Number(x['招录人数'])||0),0);
+   const systems=Array.from(new Set(jobs.map(x=>x['系统类别']))).sort();
+   const sel=document.getElementById('system');
+   systems.forEach(s=>{const op=document.createElement('option');op.value=s;op.textContent=s;sel.appendChild(op)});
+   ['q','system','confidence','check'].forEach(id=>document.getElementById(id).addEventListener(id==='q'?'input':'change',render));
+   render();
+ }catch(e){document.getElementById('rows').innerHTML='<tr><td colspan="7">加载失败：'+escapeHTML(e.message)+'。可直接下载 CSV 查看全部候选岗位。</td></tr>';document.getElementById('count').textContent='请检查 GitHub Pages 的 data/hubei_candidates_2027.csv 是否已发布。'}
+}
+load();
 </script></body></html>
