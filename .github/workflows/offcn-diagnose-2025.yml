@@ -1,0 +1,37 @@
+name: 诊断中公2025职位详情入口
+
+on:
+  push:
+    paths:
+      - ".github/workflows/offcn-diagnose-2025.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-offcn.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-offcn.txt
+      - name: Inspect one public listing page
+        run: python scripts/diagnose_offcn_2025_links.py
+      - name: Commit diagnostic summary
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/offcn_diagnostics_2025_links.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Add 2025 Offcn link diagnostics"
+            git push
+          fi
