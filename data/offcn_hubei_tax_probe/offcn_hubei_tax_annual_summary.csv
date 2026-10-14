@@ -1,2 +1,2 @@
-﻿year,seed_url,expected_positions,expected_recruit_count,site_total_applicant_count,site_total_approved_count,pages_attempted,pages_ok,positions_unique,rows_with_position_level_approved_count,rows_with_position_level_applicant_count,detail_links_unique,status,row_conflicts
-2025,https://zhiwei.offcn.com/gj/2025/bmall11865_2.html,537,1100,105140,87202,48,48,537,0,537,0,finished_or_page_limit,0
+﻿year,seed_url,expected_positions,expected_recruit_count,site_total_applicant_count,site_total_approved_count,pages_attempted,pages_ok,positions_unique,rows_with_position_level_approved_count,rows_with_position_level_applicant_count,detail_links_unique,status,row_conflicts,rows_missing_final_approved_count,sum_position_level_approved_count,position_sum_minus_site_total_approved
+2025,https://zhiwei.offcn.com/gj/2025/bmall11865_2.html,537,1100,105140,87202,48,48,537,533,537,0,finished_or_page_limit,0,4,87031,-171

@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-10-14T12:23:57+00:00",
+  "scraped_at": "2026-10-14T12:27:55+00:00",
   "source": "https://zhiwei.offcn.com/",
   "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
   "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
@@ -14,14 +14,19 @@
       "pages_attempted": 48,
       "pages_ok": 48,
       "positions_unique": 537,
-      "rows_with_position_level_approved_count": 0,
+      "rows_with_position_level_approved_count": 533,
       "rows_with_position_level_applicant_count": 537,
       "detail_links_unique": 0,
       "status": "finished_or_page_limit",
-      "row_conflicts": 0
+      "row_conflicts": 0,
+      "rows_missing_final_approved_count": 4,
+      "sum_position_level_approved_count": 87031,
+      "position_sum_minus_site_total_approved": -171
     }
   ],
   "total_position_rows": 537,
+  "total_positions_with_final_approved_count": 533,
+  "total_missing_final_approved_count": 4,
   "total_detail_links_seen": 0,
   "total_detail_pages_audited": 0,
   "2025_hubei_rank_report": {
@@ -32,19 +37,20 @@
     "pages_attempted": 58,
     "pages_ok": 58,
     "parsed_rank_rows_before_dedupe": 855,
-    "rank_rows_unique": 851,
+    "rank_rows_unique": 849,
     "row_conflicts": 0,
     "matching_rule": "unit + position name + recruiting count + applicant count; exact match only for automatic fill"
   },
   "2025_hubei_rank_match_report": {
     "target_rows_2025": 537,
-    "unique_matched": 535,
+    "unique_matched": 533,
     "ambiguous": 0,
-    "unmatched": 2
+    "unmatched": 4
   },
   "2025_urljump_source_audit": {
     "status": "found_inline",
     "implementation_url": "inline HTML script",
+    "urljump_function": "function urljump(url,zwcode,zwyear,id){\r\n    var uid = \"\";\r\n    $(\"#url\").val(url);\r\n    $(\"#id\").val(id);\r\n    //检测是否登录\r\n    if(uid==\"\"){\r\n      window.open('/index/user/login?zwcode=gj&c9925760d0265fc151c7d5406a0f420e');\r\n      return false;\r\n    }else{\r\n      var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html';      \r\n      window.location.href=tjurl;\r\n    } \r\n  }",
     "script_sources_found": [
       "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.min.js",
       "https://zhiwei.offcn.com/assets/zj/zgjs/public.js?8959",

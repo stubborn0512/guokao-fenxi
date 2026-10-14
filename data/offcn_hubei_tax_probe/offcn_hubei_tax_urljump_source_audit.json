@@ -1,0 +1,19 @@
+{
+  "source_page": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html",
+  "script_sources_found": [
+    "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.min.js",
+    "https://zhiwei.offcn.com/assets/zj/zgjs/public.js?8959",
+    "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.cookie.min.js",
+    "https://statics.offcn.com/common/pc/js/bdtj/bdtop.js",
+    "https://zhiwei.offcn.com/assets/zj/zgjs/lhgdialog/lhgdialog.min.js",
+    "https://zhiwei.offcn.com/assets/zj/zgjs/dbpk.js",
+    "https://pg-chatn5.bjmantis.net/chat/js/dist/mantis.min.js?8961",
+    "https://statics.offcn.com/common/pc/js/bdtj/bdbot.js",
+    "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_pc.js",
+    "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_gj_pc.js"
+  ],
+  "implementation_url": "inline HTML script",
+  "urljump_function": "function urljump(url,zwcode,zwyear,id){\r\n    var uid = \"\";\r\n    $(\"#url\").val(url);\r\n    $(\"#id\").val(id);\r\n    //检测是否登录\r\n    if(uid==\"\"){\r\n      window.open('/index/user/login?zwcode=gj&c9925760d0265fc151c7d5406a0f420e');\r\n      return false;\r\n    }else{\r\n      var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html';      \r\n      window.location.href=tjurl;\r\n    } \r\n  }",
+  "status": "found_inline",
+  "external_scripts_checked": []
+}
