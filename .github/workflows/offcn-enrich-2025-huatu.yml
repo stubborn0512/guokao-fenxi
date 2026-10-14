@@ -1,0 +1,50 @@
+name: 补齐2025湖北税务逐岗位合格人数
+
+on:
+  push:
+    paths:
+      - ".github/workflows/offcn-enrich-2025-huatu.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository data
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-offcn.txt
+      - name: Install dependencies
+        run: python -m pip install -r requirements-offcn.txt
+      - name: Fetch and match public Huatu position data
+        run: python scripts/enrich_2025_counts_from_huatu.py
+      - name: Commit enriched rows and match audit
+        if: success()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_positions_2021_2025_enriched.csv
+          git add data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025.csv
+          git add data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025_match_audit.csv
+          git add data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025_enrichment_report.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Add public 2025 Hubei tax approval counts and source audit"
+            git push
+          fi
+      - name: Upload audit outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: huatu-2025-hubei-tax-enrichment
+          path: data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025*
+          if-no-files-found: warn
+          retention-days: 14
