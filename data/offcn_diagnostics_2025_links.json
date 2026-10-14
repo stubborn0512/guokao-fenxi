@@ -1,0 +1,57 @@
+{
+  "source_url": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html",
+  "http_status": 200,
+  "page_title": "国家税务总局湖北省税务局2025国家公务员考试职位表_国家税务总局湖北省税务局国考报名人数_分数线_中公国考职位表",
+  "matched_rows": [],
+  "script_refs": [
+    {
+      "src": "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.min.js",
+      "type": "text/javascript"
+    },
+    {
+      "src": "https://zhiwei.offcn.com/assets/zj/zgjs/public.js?8959",
+      "type": "text/javascript"
+    },
+    {
+      "src": "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.cookie.min.js",
+      "type": "text/javascript"
+    },
+    {
+      "src": "https://statics.offcn.com/common/pc/js/bdtj/bdtop.js",
+      "type": ""
+    },
+    {
+      "src": "https://zhiwei.offcn.com/assets/zj/zgjs/lhgdialog/lhgdialog.min.js",
+      "type": "text/javascript"
+    },
+    {
+      "inline_script_excerpt": "//中文乱码处理（获取参数）\r\n\t\t\tfunction getUrlParam(name){\r\n\t\t\t\t// 用该属性获取页面 URL 地址从问号 (?) 开始的 URL（查询部分）\r\n\t\t\t\tvar url = window.location.search;\r\n\t\t\t\t// 正则筛选地址栏\r\n\t\t\t\tvar reg = new RegExp(\"(^|&)\"+ name +\"=([^&]*)(&|$)\");\r\n\t\t\t\t// 匹配目标参数\r\n\t\t\t\tvar result = url.substr(1).match(reg);\r\n\t\t\t\t//返回参数值\r\n\t\t\t\treturn result ? decodeURIComponent(result[2]) : null;\r\n\t\t\t}\r\n\t\t\t$(function(){\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\tvar areasource=getUrlParam('area');//获取地方来源\r\n\t\t\t\tif(areasource=='null'){\r\n\t\t\t\t\tareasource='';\r\n\t\t\t\t}\r\n\t\t\t\tif(areasource){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('areasource', areasource, { expires: 1, path: '/' });\r\n\t\t\t\t}\r\n\t\t\t\tvar scode=getUrlParam('scode');//mis帐号来源\r\n\t\t\t\tif(scode=='null'){\r\n\t\t\t\t\tscode='';\r\n\t\t\t\t}\r\n\t\t\t\tif(scode){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('scode', scode, { expires: 1, path: '/' });\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\t//20211230-------\r\n\t\t\t\tvar orgn=getUrlParam('orgn');\r\n\t\t\t\tif(orgn=='null'){\r\n\t\t\t\t\torgn='';\r\n\t\t\t\t}\r\n\t\t\t\tif(orgn){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('areasource', orgn, { expire"
+    },
+    {
+      "src": "https://zhiwei.offcn.com/assets/zj/zgjs/dbpk.js",
+      "type": ""
+    },
+    {
+      "inline_script_excerpt": "$(function(){\r\n\t\t\r\n\t\tvar owner = $.cookie('owner');\r\n\t\r\n\t\t$.ajax({\r\n            type:\"get\",\r\n            url:\"/index/country/getonenine\",\r\n            data:{owner:owner},\r\n            dataType:'json',\r\n            success:function(result){\r\n\t\t\t\t$('#get_onenine').html(result);\r\n\t\t\t\t/*$('.courses_list li').each(function(){\r\n\t\t\t\t\tvar num = $('.courses_list li').index($(this))+1,\r\n\t\t\t\t\t\tkc_index = num%4;\r\n\t\t\t\t\t$(this).addClass('courses_li' + num);\r\n\t\t\t\t\tif(num%4==0){\r\n\t\t\t\t\t\t$(this).addClass('marr0');\r\n\t\t\t\t\t}\r\n\t\t\t\t});*/\r\n            }\r\n        });\r\n\t});"
+    },
+    {
+      "inline_script_excerpt": "/*$(function(){\r\n\t\t$.ajax({\r\n            type:\"get\",\r\n            url:\"/index/country/getlogintatus/?stime=1791990667\",\r\n            data:{},\r\n            dataType:'json',\r\n            success:function(result){\r\n\t\t\t\t$('#dlyhid').val(result);\r\n            }\r\n        });\r\n\t});*/\r\n  //跳转zw，lnfsx，lnblb\r\n  function urljump(url,zwcode,zwyear,id){\r\n    //var uid = \"\";\r\n\tvar dlyhid = $(\"#dlyhid\").val();\r\n\tconsole.log(dlyhid);\r\n\tvar tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html'; \r\n    $(\"#url\").val(url);\r\n    $(\"#id\").val(id);\r\n    //检测是否登录\r\n    if(dlyhid==\"\"){\r\n\t  $('.mask,.zgxf_warningt').show();\r\n\t  $(\"#tjurl\").val(tjurl);\r\n\t  return false;\r\n      //window.open('/index/user/login?zwcode=gj&1791990667');\r\n      //return false;\r\n    }else{\r\n      var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html';\r\n\t  //window.location.href=tjurl;//当前窗口打开\t  \r\n      window.open(tjurl);//新窗口打开\r\n    } \r\n  }\r\n  function urllogin(){\r\n      var tjurl = $(\"#tjurl\").val();\r\n\t  window.location.href='/user/login?zw"
+    },
+    {
+      "src": "https://pg-chatn5.bjmantis.net/chat/js/dist/mantis.min.js?8961#66a74e55da13770001f5b1c2",
+      "type": ""
+    },
+    {
+      "src": "https://statics.offcn.com/common/pc/js/bdtj/bdbot.js",
+      "type": "text/javascript"
+    },
+    {
+      "src": "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_pc.js",
+      "type": "text/javascript"
+    },
+    {
+      "src": "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_gj_pc.js",
+      "type": "text/javascript"
+    }
+  ]
+}
