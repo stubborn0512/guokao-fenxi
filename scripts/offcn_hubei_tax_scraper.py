@@ -145,8 +145,130 @@ def parse_summary(text):
         match = re.search(pattern, compact); result[key] = to_int(match.group(1)) if match else ""
     return result
 
+def extract_js_function(source, name="urljump"):
+    """Return a bounded JavaScript function body while respecting quoted strings and comments."""
+    patterns = [
+        rf"function\s+{re.escape(name)}\s*\([^)]*\)\s*\{{",
+        rf"(?:var|let|const)?\s*{re.escape(name)}\s*=\s*function\s*\([^)]*\)\s*\{{",
+        rf"{re.escape(name)}\s*:\s*function\s*\([^)]*\)\s*\{{",
+    ]
+    match = None
+    for pattern in patterns:
+        match = re.search(pattern, source, flags=re.I)
+        if match:
+            break
+    if not match:
+        return ""
+    open_brace = source.find("{", match.start(), match.end())
+    if open_brace < 0:
+        return source[match.start():match.start() + 1200]
+    depth = 0
+    quote = ""
+    escaped = False
+    line_comment = False
+    block_comment = False
+    i = open_brace
+    while i < len(source):
+        ch = source[i]
+        nxt = source[i + 1] if i + 1 < len(source) else ""
+        if line_comment:
+            if ch in "\r\n":
+                line_comment = False
+        elif block_comment:
+            if ch == "*" and nxt == "/":
+                block_comment = False
+                i += 1
+        elif quote:
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == quote:
+                quote = ""
+        elif ch == "/" and nxt == "/":
+            line_comment = True
+            i += 1
+        elif ch == "/" and nxt == "*":
+            block_comment = True
+            i += 1
+        elif ch in ("'", '"', chr(96)):
+            quote = ch
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return source[match.start():i + 1][:12000]
+        i += 1
+    return source[match.start():match.start() + 12000]
+
+
+def audit_urljump_implementation(session, position_rows, delay):
+    """Inspect the page's own JS to learn what its '报名大数据' action opens; never guess endpoints."""
+    source_page = next((row.get("source_url", "") for row in position_rows if row.get("year") == 2025), "")
+    sources = []
+    inline_scripts = []
+    for row in position_rows:
+        if row.get("year") != 2025:
+            continue
+        try:
+            decoded = json.loads(row.get("page_script_sources_json", "[]") or "[]")
+            sources.extend(decoded)
+        except (ValueError, TypeError):
+            pass
+        inline = row.get("urljump_inline_definition", "")
+        if inline and inline not in inline_scripts:
+            inline_scripts.append(inline)
+    sources = list(dict.fromkeys(source for source in sources if source))
+    inline_impl = next((snippet for snippet in inline_scripts if extract_js_function(snippet)), "")
+    if inline_impl:
+        return {
+            "source_page": source_page, "script_sources_found": sources,
+            "implementation_url": "inline HTML script",
+            "urljump_function": extract_js_function(inline_impl),
+            "status": "found_inline",
+            "external_scripts_checked": [],
+        }
+    external_audit = []
+    for script_url in sources[:30]:
+        html, status, error = fetch(session, script_url, max(delay, 0.35), None, "script")
+        if not html:
+            external_audit.append({"url": script_url, "status": status, "error": error, "contains_urljump": False})
+            continue
+        function = extract_js_function(html)
+        external_audit.append({
+            "url": script_url, "status": "ok", "error": "", "contains_urljump": bool(function),
+            "function_snippet": function,
+            "urljump_mentions": [
+                norm(html[max(0, m.start() - 180):min(len(html), m.end() + 300)])
+                for m in list(re.finditer("urljump", html, flags=re.I))[:8]
+            ],
+        })
+        if function:
+            return {
+                "source_page": source_page, "script_sources_found": sources,
+                "implementation_url": script_url, "urljump_function": function,
+                "status": "found_external", "external_scripts_checked": external_audit,
+            }
+    return {
+        "source_page": source_page, "script_sources_found": sources,
+        "implementation_url": "", "urljump_function": "",
+        "status": "not_found_in_inspected_scripts", "external_scripts_checked": external_audit,
+    }
+
+
 def parse_list_page(html, url, year):
     soup = BeautifulSoup(html, "html.parser")
+    script_sources = [
+        urljoin(url, script.get("src", "")).split("#", 1)[0]
+        for script in soup.find_all("script", src=True)
+        if script.get("src")
+    ]
+    inline_script_text = "\n".join(
+        script.get_text() for script in soup.find_all("script")
+        if not script.get("src") and script.get_text()
+    )
+    inline_urljump = extract_js_function(inline_script_text)
     summary = parse_summary(norm(soup.get_text(" ", strip=True)))
     for table in soup.find_all("table"):
         trs = table.find_all("tr"); header_row_idx = None; header = []
@@ -201,6 +323,8 @@ def parse_list_page(html, url, year):
                 "source_url": url, "fetched_at": now_iso(), "raw_row_text": row_text,
                 "raw_cells_json": json.dumps(values, ensure_ascii=False),
                 "row_action_controls_json": json.dumps(action_controls, ensure_ascii=False),
+                "page_script_sources_json": json.dumps(script_sources, ensure_ascii=False),
+                "urljump_inline_definition": inline_urljump,
                 "detail_applicant_count": "",
                 "detail_approved_count": "", "detail_source_url": "", "detail_match_status": "not_crawled",
                 "detail_approved_evidence": "", "detail_applicant_evidence": "",
@@ -555,7 +679,11 @@ def main():
     rank_conflicts = []
     rank_match_audit = []
     rank_match_report = {}
+    urljump_audit = {}
     if 2025 in args.years:
+        logging.info("检查中公列表页“报名大数据”按钮的 urljump 跳转函数，定位未匹配岗位的详情数据源。")
+        urljump_audit = audit_urljump_implementation(session, all_positions, args.delay)
+        logging.info("urljump 函数核验状态：%s", urljump_audit.get("status", "unknown"))
         logging.info("2025 列表未提供逐岗位过审人数，改用中公湖北职位竞争比排行榜进行交叉补数。")
         rank_rows, rank_page_audit, rank_report, rank_conflicts = crawl_2025_hubei_approval_rank(
             session, outdir, args.delay, save_html
@@ -604,6 +732,9 @@ def main():
         if row.get("year") == 2025 and row.get("position_code") in focus_codes
     ]
     write_csv(outdir / "offcn_hubei_tax_2025_unmatched_controls_audit.csv", control_focus)
+    (outdir / "offcn_hubei_tax_urljump_source_audit.json").write_text(
+        json.dumps(urljump_audit, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     qa = {
         "scraped_at": now_iso(), "source": "https://zhiwei.offcn.com/",
         "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
@@ -611,6 +742,9 @@ def main():
         "years": annual_reports, "total_position_rows": len(all_positions),
         "total_detail_links_seen": len(all_detail_links), "total_detail_pages_audited": len(detail_audit),
         "2025_hubei_rank_report": rank_report, "2025_hubei_rank_match_report": rank_match_report,
+        "2025_urljump_source_audit": {"status": urljump_audit.get("status", "not_run"),
+                                      "implementation_url": urljump_audit.get("implementation_url", ""),
+                                      "script_sources_found": urljump_audit.get("script_sources_found", [])},
         "list_pages_blocked": [r for r in all_page_audits if r["status"] in ("http_403", "http_429", "access_challenge")],
         "limitations": [
             "中公是第三方职位库，不是招录机关官方原始数据库。",
