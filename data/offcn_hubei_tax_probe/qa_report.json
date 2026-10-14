@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-10-14T12:19:54+00:00",
+  "scraped_at": "2026-10-14T12:23:57+00:00",
   "source": "https://zhiwei.offcn.com/",
   "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
   "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
@@ -32,15 +32,31 @@
     "pages_attempted": 58,
     "pages_ok": 58,
     "parsed_rank_rows_before_dedupe": 855,
-    "rank_rows_unique": 845,
+    "rank_rows_unique": 851,
     "row_conflicts": 0,
     "matching_rule": "unit + position name + recruiting count + applicant count; exact match only for automatic fill"
   },
   "2025_hubei_rank_match_report": {
     "target_rows_2025": 537,
-    "unique_matched": 532,
+    "unique_matched": 535,
     "ambiguous": 0,
-    "unmatched": 5
+    "unmatched": 2
+  },
+  "2025_urljump_source_audit": {
+    "status": "found_inline",
+    "implementation_url": "inline HTML script",
+    "script_sources_found": [
+      "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.min.js",
+      "https://zhiwei.offcn.com/assets/zj/zgjs/public.js?8959",
+      "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.cookie.min.js",
+      "https://statics.offcn.com/common/pc/js/bdtj/bdtop.js",
+      "https://zhiwei.offcn.com/assets/zj/zgjs/lhgdialog/lhgdialog.min.js",
+      "https://zhiwei.offcn.com/assets/zj/zgjs/dbpk.js",
+      "https://pg-chatn5.bjmantis.net/chat/js/dist/mantis.min.js?8961",
+      "https://statics.offcn.com/common/pc/js/bdtj/bdbot.js",
+      "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_pc.js",
+      "https://statics.offcn.com/common/pc/js/bdtj/zwk/bdtj_zwk_gj_pc.js"
+    ]
   },
   "list_pages_blocked": [],
   "limitations": [
