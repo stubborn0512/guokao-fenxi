@@ -1,0 +1,48 @@
+name: 中公湖北税务历史数据抓取
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_details:
+        description: "只抓列表页（速度较快，不跟进详情）"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: read
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements-offcn.txt
+      - name: Scrape public pages
+        shell: bash
+        env:
+          SKIP_DETAILS: "${{ inputs.skip_details }}"
+        run: |
+          if [ "$SKIP_DETAILS" = "true" ]; then
+            python scripts/offcn_hubei_tax_scraper.py --out offcn_hubei_tax_data --skip-details --delay 1.0
+          else
+            python scripts/offcn_hubei_tax_scraper.py --out offcn_hubei_tax_data --delay 1.0
+          fi
+      - name: Upload scrape data and audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: offcn-hubei-tax-data
+          path: offcn_hubei_tax_data/
+          if-no-files-found: error
+          retention-days: 14
