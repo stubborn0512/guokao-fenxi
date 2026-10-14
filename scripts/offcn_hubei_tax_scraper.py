@@ -267,6 +267,178 @@ def parse_detail_page(html, url, expected):
         "detail_approved_count": approved, "detail_applicant_count": applicant,
         "detail_approved_evidence": approved_ev or context, "detail_applicant_evidence": applicant_ev or context}
 
+RANK_2025_HUBEI_URL = "https://zhiwei.offcn.com/gj/zwph/2025_jzb_hu.html"
+
+def crawl_2025_hubei_approval_rank(session, outdir, delay, save_html=False):
+    """Use Offcn's Hubei position-ranking table, which exposes per-position applicant and approved counts."""
+    base_url = RANK_2025_HUBEI_URL
+    page_rows, page_audit = [], []
+    soup_cache = {}
+    first_html, status, error = fetch(session, base_url, delay, None, "rank")
+    page_audit.append({"year": 2025, "url": base_url, "status": status, "error": error,
+                       "fetched_at": now_iso(), "position_rows": 0})
+    if not first_html:
+        return [], page_audit, {"status": status, "expected_rows": "", "rows": 0}, []
+
+    first_soup = BeautifulSoup(first_html, "html.parser")
+    page_text = norm(first_soup.get_text(" ", strip=True))
+    total_match = re.search(r"(?<!\d)(\d+)\s*条", page_text)
+    expected_total = int(total_match.group(1)) if total_match else ""
+    per_page = 15
+    page_count = math.ceil(expected_total / per_page) if expected_total else 100
+    page_count = min(max(1, page_count), 100)
+
+    page_urls = [base_url]
+    for page_num in range(2, page_count + 1):
+        page_urls.append(f"https://zhiwei.offcn.com/gj/zwph/2025_jzb_hu_qb_qb_desc_{page_num}.html")
+
+    def parse_rank_page(html, url):
+        local_soup = BeautifulSoup(html, "html.parser")
+        for table in local_soup.find_all("table"):
+            trs = table.find_all("tr")
+            header_idx = None
+            header = []
+            for idx, tr in enumerate(trs[:10]):
+                vals = [norm(c.get_text(" ", strip=True)) for c in tr.find_all(["th", "td"], recursive=False)]
+                joined = "|".join(vals)
+                if all(k in joined for k in ("地区", "部门名称", "用人司局", "职位名称", "招考人数", "报考人数", "过审人数")):
+                    header_idx, header = idx, vals
+                    break
+            if header_idx is None:
+                continue
+            aliases = {
+                "region": ["地区"], "department": ["部门名称"], "unit": ["用人司局"],
+                "position_name": ["职位名称"], "recruit_count": ["招考人数"],
+                "applicant_count": ["报考人数"], "approved_count": ["过审人数"],
+                "competition_ratio": ["竞争比"],
+            }
+            indexes = {key: header_index(header, values) for key, values in aliases.items()}
+            parsed = []
+            for tr in trs[header_idx + 1:]:
+                cells = tr.find_all(["th", "td"], recursive=False)
+                vals = [norm(c.get_text(" ", strip=True)) for c in cells]
+                if len(vals) < 7:
+                    continue
+                def get(field):
+                    col = indexes[field]
+                    return vals[col] if col is not None and col < len(vals) else ""
+                region, department, unit = get("region"), get("department"), get("unit")
+                position_name = get("position_name")
+                if not unit or not position_name or not region:
+                    continue
+                parsed.append({
+                    "year": 2025, "region": region, "department": department, "unit": unit,
+                    "position_name": position_name, "recruit_count": to_int(get("recruit_count")),
+                    "applicant_count": to_int(get("applicant_count")),
+                    "approved_count": to_int(get("approved_count")),
+                    "competition_ratio": get("competition_ratio"), "source_url": url,
+                    "fetched_at": now_iso(), "raw_row_text": norm(tr.get_text(" ", strip=True)),
+                })
+            return parsed, "ok" if parsed else "empty_rank_rows"
+        return [], "no_rank_table"
+
+    for i, url in enumerate(page_urls, 1):
+        if i == 1:
+            html = first_html
+            status, error = "ok", ""
+        else:
+            html, status, error = fetch(session, url, delay, None, "rank")
+        audit = {"year": 2025, "url": url, "status": status, "error": error,
+                 "fetched_at": now_iso(), "position_rows": 0}
+        if not html:
+            page_audit.append(audit)
+            # A missing later page is recorded, but the remaining pages are still attempted.
+            continue
+        rows, parse_status = parse_rank_page(html, url)
+        audit["parse_status"] = parse_status
+        audit["position_rows"] = len(rows)
+        page_rows.extend(rows)
+        page_audit.append(audit)
+
+    # Keep the first copy of identical rank rows but audit conflicting values for the same role key.
+    unique = {}
+    rank_conflicts = []
+    for row in page_rows:
+        key = (norm(row["unit"]), norm(row["position_name"]), row["recruit_count"], row["applicant_count"])
+        if key not in unique:
+            unique[key] = row
+        elif unique[key]["approved_count"] != row["approved_count"]:
+            rank_conflicts.append({
+                "key": str(key), "first_approved_count": unique[key]["approved_count"],
+                "conflicting_approved_count": row["approved_count"], "first_source_url": unique[key]["source_url"],
+                "conflicting_source_url": row["source_url"],
+            })
+    result_rows = list(unique.values())
+    report = {
+        "status": "completed" if all(p["status"] == "ok" for p in page_audit) else "partial",
+        "source_url": base_url, "expected_rows": expected_total, "expected_pages": page_count,
+        "pages_attempted": len(page_audit), "pages_ok": sum(p["status"] == "ok" for p in page_audit),
+        "parsed_rank_rows_before_dedupe": len(page_rows), "rank_rows_unique": len(result_rows),
+        "row_conflicts": len(rank_conflicts),
+        "matching_rule": "unit + position name + recruiting count + applicant count; exact match only for automatic fill",
+    }
+    return result_rows, page_audit, report, rank_conflicts
+
+
+def match_2025_rank_approvals(position_rows, rank_rows):
+    """Attach ranked approval counts only when the composite key yields exactly one result."""
+    from collections import defaultdict
+    rank_map = defaultdict(list)
+    for rank in rank_rows:
+        if norm(rank.get("department", "")) != "国家税务总局湖北省税务局":
+            continue
+        key = (
+            norm(rank.get("unit", "")), norm(rank.get("position_name", "")),
+            rank.get("recruit_count", ""), rank.get("applicant_count", ""),
+        )
+        rank_map[key].append(rank)
+
+    audit = []
+    match_count = 0
+    ambiguous_count = 0
+    for row in position_rows:
+        if row.get("year") != 2025:
+            continue
+        key = (
+            norm(row.get("unit", "")), norm(row.get("position_name", "")),
+            row.get("recruit_count", ""), row.get("applicant_count_list", ""),
+        )
+        matches = rank_map.get(key, [])
+        item = {
+            "year": 2025, "position_code": row.get("position_code", ""),
+            "unit": row.get("unit", ""), "position_name": row.get("position_name", ""),
+            "recruit_count": row.get("recruit_count", ""),
+            "applicant_count_list": row.get("applicant_count_list", ""),
+            "rank_match_count": len(matches), "rank_approved_count": "",
+            "rank_source_url": "", "match_status": "",
+        }
+        if len(matches) == 1 and matches[0].get("approved_count", "") != "":
+            rank = matches[0]
+            row["detail_approved_count"] = rank["approved_count"]
+            row["detail_source_url"] = rank["source_url"]
+            row["detail_match_status"] = "matched_unique_offcn_approval_rank"
+            row["detail_approved_evidence"] = (
+                "中公湖北省2025职位竞争比排行榜："
+                + rank["raw_row_text"]
+                + "；复合键=用人司局+职位名称+招录人数+报考人数"
+            )
+            row["approved_count_final"] = rank["approved_count"]
+            row["approved_count_source"] = "中公湖北2025职位竞争比排行榜；复合键唯一匹配"
+            item["rank_approved_count"] = rank["approved_count"]
+            item["rank_source_url"] = rank["source_url"]
+            item["match_status"] = "matched_unique"
+            match_count += 1
+        elif len(matches) > 1:
+            item["match_status"] = "ambiguous_multiple_rank_rows"
+            ambiguous_count += 1
+        else:
+            item["match_status"] = "no_exact_composite_key_match"
+        audit.append(item)
+    report = {"target_rows_2025": len(audit), "unique_matched": match_count,
+              "ambiguous": ambiguous_count, "unmatched": len(audit) - match_count - ambiguous_count}
+    return audit, report
+
+
 def dedupe_positions(records):
     by_key, conflicts = {}, []
     for row in records:
@@ -377,8 +549,25 @@ def main():
                         row["detail_approved_count"] = parsed["detail_approved_count"]; row["detail_approved_evidence"] = parsed.get("detail_approved_evidence", "")
                     row["detail_source_url"] = link["href"]; row["detail_match_status"] = parsed["detail_match_status"]
             if index % 50 == 0: logging.info("详情页进度 %d/%d", index, len(unique))
+    rank_report = {}
+    rank_rows = []
+    rank_page_audit = []
+    rank_conflicts = []
+    rank_match_audit = []
+    rank_match_report = {}
+    if 2025 in args.years:
+        logging.info("2025 列表未提供逐岗位过审人数，改用中公湖北职位竞争比排行榜进行交叉补数。")
+        rank_rows, rank_page_audit, rank_report, rank_conflicts = crawl_2025_hubei_approval_rank(
+            session, outdir, args.delay, save_html
+        )
+        rank_match_audit, rank_match_report = match_2025_rank_approvals(all_positions, rank_rows)
+        logging.info("2025 排行榜报告：%s", json.dumps(rank_report, ensure_ascii=False))
+        logging.info("2025 匹配报告：%s", json.dumps(rank_match_report, ensure_ascii=False))
+
     for row in all_positions:
-        if row.get("approved_count_list", "") != "":
+        if row.get("approved_count_final", "") != "":
+            pass
+        elif row.get("approved_count_list", "") != "":
             row["approved_count_final"] = row["approved_count_list"]; row["approved_count_source"] = "列表页明确过审/合格人数列"
         elif row.get("detail_approved_count", "") != "":
             row["approved_count_final"] = row["detail_approved_count"]; row["approved_count_source"] = "职位代码核验后的详情页局部字段"
@@ -395,12 +584,17 @@ def main():
     write_csv(outdir / "offcn_hubei_tax_details_audit.csv", detail_audit)
     write_csv(outdir / "offcn_hubei_tax_annual_summary.csv", annual_reports)
     write_csv(outdir / "offcn_hubei_tax_row_conflicts.csv", all_conflicts)
+    write_csv(outdir / "offcn_hubei_tax_2025_rank_positions.csv", rank_rows)
+    write_csv(outdir / "offcn_hubei_tax_2025_rank_pages_audit.csv", rank_page_audit)
+    write_csv(outdir / "offcn_hubei_tax_2025_rank_conflicts.csv", rank_conflicts)
+    write_csv(outdir / "offcn_hubei_tax_2025_rank_match_audit.csv", rank_match_audit)
     qa = {
         "scraped_at": now_iso(), "source": "https://zhiwei.offcn.com/",
         "method": "低频分页列表抓取；按网页表头映射字段；详情页只从职位代码对应行/局部节点提取，保留可审计证据",
         "important": "过审总数是年度汇总口径，不是逐岗位人数；报考人数不得替代过审人数。",
         "years": annual_reports, "total_position_rows": len(all_positions),
         "total_detail_links_seen": len(all_detail_links), "total_detail_pages_audited": len(detail_audit),
+        "2025_hubei_rank_report": rank_report, "2025_hubei_rank_match_report": rank_match_report,
         "list_pages_blocked": [r for r in all_page_audits if r["status"] in ("http_403", "http_429", "access_challenge")],
         "limitations": [
             "中公是第三方职位库，不是招录机关官方原始数据库。",
