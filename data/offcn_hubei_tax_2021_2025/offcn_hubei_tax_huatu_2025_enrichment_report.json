@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-10-14T15:14:32+00:00",
+  "offcn_original_csv": "data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_positions_2021_2025.csv",
+  "huatu_public_source_url": "https://ah.huatu.com/zw/hubei/2025_3.html",
+  "huatu_table_header": [
+    "岗位代码",
+    "用人司局",
+    "职位名称",
+    "学历要求",
+    "专业要求",
+    "招考人数",
+    "报名人数",
+    "合格人数",
+    "职位详细",
+    "对比"
+  ],
+  "huatu_expected_position_count_if_detected": 537,
+  "huatu_unique_position_records": 537,
+  "offcn_2025_position_records": 537,
+  "matches_exact_code_unit_name": 537,
+  "matches_fallback_code_unit_only": 0,
+  "unmatched_or_ambiguous_offcn_2025_rows": 0,
+  "approval_count_fallbacks_added_from_huatu": 537,
+  "applicant_count_mismatches_between_offcn_and_huatu": 384,
+  "source_policy": "2021-2024 Offcn approval counts remain unchanged. 2025 approval counts are filled from Huatu's explicit public '合格人数' column only after matching position code, unit and position name; no inferred values are used.",
+  "caveat": "Offcn and Huatu applicant counts differ for some positions, indicating different capture snapshots or platform data. Therefore Huatu supplemental counts are clearly labeled and kept alongside Offcn original fields, not represented as Offcn-provided values.",
+  "outputs": [
+    "data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_positions_2021_2025_enriched.csv",
+    "data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025.csv",
+    "data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_huatu_2025_match_audit.csv"
+  ]
+}
