@@ -1,22 +1,22 @@
 name: 中公湖北税务历史数据抓取
 
 on:
-  # 仅在这个工作流文件变更时自动启动一次；数据结果提交不会触发递归运行。
   push:
     paths:
       - ".github/workflows/offcn-hubei-tax-scrape.yml"
       - "scripts/offcn_hubei_tax_scraper.py"
       - "requirements-offcn.txt"
+      - "data/run-full-scrape.txt"
   workflow_dispatch:
     inputs:
-      skip_details:
-        description: "只抓列表页（速度较快，不跟进详情）"
-        required: false
-        default: "false"
+      scope:
+        description: "抓取范围"
+        required: true
+        default: "full"
         type: choice
         options:
-          - "false"
-          - "true"
+          - "full"
+          - "2025_probe"
 
 permissions:
   contents: write
@@ -36,15 +36,35 @@ jobs:
           cache-dependency-path: requirements-offcn.txt
       - name: Install dependencies
         run: python -m pip install -r requirements-offcn.txt
-      - name: Scrape public pages
+      - name: Select scrape scope
         shell: bash
         env:
-          SKIP_DETAILS: "${{ inputs.skip_details }}"
+          EVENT_NAME: "${{ github.event_name }}"
+          INPUT_SCOPE: "${{ inputs.scope }}"
         run: |
-          if [ "$SKIP_DETAILS" = "true" ]; then
-            python scripts/offcn_hubei_tax_scraper.py --out data/offcn_hubei_tax_2021_2025 --skip-details --no-raw-html --delay 1.0
+          SCOPE="$INPUT_SCOPE"
+          if [ "$EVENT_NAME" = "push" ]; then
+            if git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | grep -qx "data/run-full-scrape.txt"; then
+              SCOPE="full"
+            else
+              SCOPE="2025_probe"
+            fi
+          fi
+          if [ "$SCOPE" = "2025_probe" ]; then
+            echo "RUN_SCOPE=probe" >> "$GITHUB_ENV"
+            echo "OUT_DIR=data/offcn_hubei_tax_probe" >> "$GITHUB_ENV"
           else
-            python scripts/offcn_hubei_tax_scraper.py --out data/offcn_hubei_tax_2021_2025 --no-raw-html --delay 1.0
+            echo "RUN_SCOPE=full" >> "$GITHUB_ENV"
+            echo "OUT_DIR=data/offcn_hubei_tax_2021_2025" >> "$GITHUB_ENV"
+          fi
+          echo "Selected scope: $SCOPE"
+      - name: Scrape public pages
+        shell: bash
+        run: |
+          if [ "$RUN_SCOPE" = "probe" ]; then
+            python scripts/offcn_hubei_tax_scraper.py --years 2025 --out "$OUT_DIR" --no-raw-html --delay 1.0
+          else
+            python scripts/offcn_hubei_tax_scraper.py --out "$OUT_DIR" --no-raw-html --delay 1.0
           fi
       - name: Commit generated CSV and audit outputs
         if: success()
@@ -52,16 +72,24 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/offcn_hubei_tax_2021_2025/*.csv data/offcn_hubei_tax_2021_2025/qa_report.json data/offcn_hubei_tax_2021_2025/scrape_log.txt
+          git add "$OUT_DIR"/*.csv "$OUT_DIR"/qa_report.json "$OUT_DIR"/scrape_log.txt
           if ! git diff --cached --quiet; then
-            git commit -m "Update scraped Hubei tax position counts"
+            git commit -m "Update Offcn tax scrape audit outputs"
             git push
           fi
-      - name: Upload scrape data and audit report
-        if: always()
+      - name: Upload full scrape artifact
+        if: always() && env.RUN_SCOPE == 'full'
         uses: actions/upload-artifact@v4
         with:
           name: offcn-hubei-tax-data
           path: data/offcn_hubei_tax_2021_2025/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Upload 2025 probe artifact
+        if: always() && env.RUN_SCOPE == 'probe'
+        uses: actions/upload-artifact@v4
+        with:
+          name: offcn-hubei-tax-2025-probe
+          path: data/offcn_hubei_tax_probe/
           if-no-files-found: warn
           retention-days: 14
