@@ -163,6 +163,28 @@ def parse_list_page(html, url, year):
             values = [norm(cell.get_text(" ", strip=True)) for cell in cells]
             row_text = norm(tr.get_text(" ", strip=True)); match = CODE_RE.search(" ".join(values))
             if not match: continue
+            # Capture the real DOM controls for audit: some Offcn table actions may be JavaScript
+            # buttons rather than HTTP anchors, which a simple href-only scraper would miss.
+            action_controls = []
+            for node in tr.find_all(True):
+                node_text = norm(node.get_text(" ", strip=True))
+                if not node_text or len(node_text) > 160:
+                    continue
+                if not any(k in node_text for k in ("报名大数据", "职位详情", "历年情况")):
+                    continue
+                attrs = {}
+                for attr, value in node.attrs.items():
+                    if attr in ("href", "onclick", "class", "id", "role", "title") or attr.startswith("data-"):
+                        attrs[attr] = value
+                ancestors = []
+                parent = node.parent
+                for _ in range(2):
+                    if parent is None or not getattr(parent, "attrs", None):
+                        break
+                    ancestors.append({"tag": parent.name, "attrs": {k: v for k, v in parent.attrs.items()
+                        if k in ("href", "onclick", "class", "id", "role", "title") or k.startswith("data-")}})
+                    parent = parent.parent
+                action_controls.append({"tag": node.name, "text": node_text, "attrs": attrs, "ancestors": ancestors})
             idx_code = indexes["position_code"]
             code_cell = values[idx_code] if idx_code is not None and idx_code < len(values) else ""
             code = code_cell if CODE_RE.fullmatch(code_cell) else match.group(0)
@@ -177,7 +199,9 @@ def parse_list_page(html, url, year):
                     header[indexes["applicant_count"]] if indexes["applicant_count"] is not None else ""),
                 "major_requirement": cell("major_requirement"), "education": cell("education"), "location": cell("location"),
                 "source_url": url, "fetched_at": now_iso(), "raw_row_text": row_text,
-                "raw_cells_json": json.dumps(values, ensure_ascii=False), "detail_applicant_count": "",
+                "raw_cells_json": json.dumps(values, ensure_ascii=False),
+                "row_action_controls_json": json.dumps(action_controls, ensure_ascii=False),
+                "detail_applicant_count": "",
                 "detail_approved_count": "", "detail_source_url": "", "detail_match_status": "not_crawled",
                 "detail_approved_evidence": "", "detail_applicant_evidence": "",
             }
