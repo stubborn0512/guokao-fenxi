@@ -2,7 +2,161 @@
   "source_url": "https://zhiwei.offcn.com/gj/2025/bmall11865_2.html",
   "http_status": 200,
   "page_title": "国家税务总局湖北省税务局2025国家公务员考试职位表_国家税务总局湖北省税务局国考报名人数_分数线_中公国考职位表",
-  "matched_rows": [],
+  "matched_rows": [
+    {
+      "position_codes": [
+        "300110008013"
+      ],
+      "row_text": "130121 国家税务总局武汉市江岸区税务局 一级行政执法员（一） 300110008013 4 224 数学类、物理学类、化学类、地理科学类、统计学类 数学类、物理学类、化学类、地理科学类、统计学类 本科及以上 湖北省武汉市江岸区 历年分数线 报名大数据 职位详情",
+      "interactions": [
+        {
+          "tag": "a",
+          "text": "历年分数线",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnfsx','gj','2025','11587')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "报名大数据",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnblb','gj','2025','11587')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "职位详情",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('zw','gj','2025','11587')",
+            "class": [
+              "zwxq"
+            ]
+          }
+        },
+        {
+          "tag": "input",
+          "text": "",
+          "attrs": {
+            "type": "checkbox",
+            "id": "a11587",
+            "onclick": "dblist(11587,event,'gj2025')",
+            "value": "一级行政执法员（一）"
+          }
+        }
+      ]
+    },
+    {
+      "position_codes": [
+        "300110008014"
+      ],
+      "row_text": "130121 国家税务总局武汉市江岸区税务局 一级行政执法员（二） 300110008014 2 219 电子信息类、计算机类、测绘类 电子信息类、计算机类、测绘类 本科及以上 湖北省武汉市江岸区 历年分数线 报名大数据 职位详情",
+      "interactions": [
+        {
+          "tag": "a",
+          "text": "历年分数线",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnfsx','gj','2025','11588')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "报名大数据",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnblb','gj','2025','11588')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "职位详情",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('zw','gj','2025','11588')",
+            "class": [
+              "zwxq"
+            ]
+          }
+        },
+        {
+          "tag": "input",
+          "text": "",
+          "attrs": {
+            "type": "checkbox",
+            "id": "a11588",
+            "onclick": "dblist(11588,event,'gj2025')",
+            "value": "一级行政执法员（二）"
+          }
+        }
+      ]
+    },
+    {
+      "position_codes": [
+        "300110008015"
+      ],
+      "row_text": "130121 国家税务总局武汉市江岸区税务局 一级行政执法员（三） 300110008015 4 61 财会审计类、财政学类、金融学类 财会审计类、财政学类、金融学类 本科及以上 湖北省武汉市江岸区 历年分数线 报名大数据 职位详情",
+      "interactions": [
+        {
+          "tag": "a",
+          "text": "历年分数线",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnfsx','gj','2025','11589')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "报名大数据",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('lnblb','gj','2025','11589')",
+            "class": [
+              "orgin"
+            ]
+          }
+        },
+        {
+          "tag": "a",
+          "text": "职位详情",
+          "attrs": {
+            "href": "javascript:void(0);",
+            "onclick": "urljump('zw','gj','2025','11589')",
+            "class": [
+              "zwxq"
+            ]
+          }
+        },
+        {
+          "tag": "input",
+          "text": "",
+          "attrs": {
+            "type": "checkbox",
+            "id": "a11589",
+            "onclick": "dblist(11589,event,'gj2025')",
+            "value": "一级行政执法员（三）"
+          }
+        }
+      ]
+    }
+  ],
   "script_refs": [
     {
       "src": "https://zhiwei.offcn.com/assets/zj/zgjs/jquery.min.js",
@@ -25,17 +179,17 @@
       "type": "text/javascript"
     },
     {
-      "inline_script_excerpt": "//中文乱码处理（获取参数）\r\n\t\t\tfunction getUrlParam(name){\r\n\t\t\t\t// 用该属性获取页面 URL 地址从问号 (?) 开始的 URL（查询部分）\r\n\t\t\t\tvar url = window.location.search;\r\n\t\t\t\t// 正则筛选地址栏\r\n\t\t\t\tvar reg = new RegExp(\"(^|&)\"+ name +\"=([^&]*)(&|$)\");\r\n\t\t\t\t// 匹配目标参数\r\n\t\t\t\tvar result = url.substr(1).match(reg);\r\n\t\t\t\t//返回参数值\r\n\t\t\t\treturn result ? decodeURIComponent(result[2]) : null;\r\n\t\t\t}\r\n\t\t\t$(function(){\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\tvar areasource=getUrlParam('area');//获取地方来源\r\n\t\t\t\tif(areasource=='null'){\r\n\t\t\t\t\tareasource='';\r\n\t\t\t\t}\r\n\t\t\t\tif(areasource){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('areasource', areasource, { expires: 1, path: '/' });\r\n\t\t\t\t}\r\n\t\t\t\tvar scode=getUrlParam('scode');//mis帐号来源\r\n\t\t\t\tif(scode=='null'){\r\n\t\t\t\t\tscode='';\r\n\t\t\t\t}\r\n\t\t\t\tif(scode){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('scode', scode, { expires: 1, path: '/' });\r\n\t\t\t\t}\r\n\t\t\t\t\r\n\t\t\t\t//20211230-------\r\n\t\t\t\tvar orgn=getUrlParam('orgn');\r\n\t\t\t\tif(orgn=='null'){\r\n\t\t\t\t\torgn='';\r\n\t\t\t\t}\r\n\t\t\t\tif(orgn){\r\n\t\t\t\t\t//将获取到的来源存入到用户cookie中\r\n\t\t\t\t\t$.cookie('areasource', orgn, { expire"
+      "inline_script_excerpt": "//中文乱码处理（获取参数） function getUrlParam(name){ // 用该属性获取页面 URL 地址从问号 (?) 开始的 URL（查询部分） var url = window.location.search; // 正则筛选地址栏 var reg = new RegExp(\"(^|&)\"+ name +\"=([^&]*)(&|$)\"); // 匹配目标参数 var result = url.substr(1).match(reg); //返回参数值 return result ? decodeURIComponent(result[2]) : null; } $(function(){ var areasource=getUrlParam('area');//获取地方来源 if(areasource=='null'){ areasource=''; } if(areasource){ //将获取到的来源存入到用户cookie中 $.cookie('areasource', areasource, { expires: 1, path: '/' }); } var scode=getUrlParam('scode');//mis帐号来源 if(scode=='null'){ scode=''; } if(scode){ //将获取到的来源存入到用户cookie中 $.cookie('scode', scode, { expires: 1, path: '/' }); } //20211230------- var orgn=getUrlParam('orgn'); if(orgn=='null'){ orgn=''; } if(orgn){ //将获取到的来源存入到用户cookie中 $.cookie('areasource', orgn, { expires: 1, path: '/' }); } var owner=getUrlParam('owner'); if(owner=='null'){ owner=''; } if(owner){ //将获取到的来源存入到用户cookie中 $.cookie('owner', owner, { expires: 1, path: '/' }); $.cookie('scode', owner, {"
     },
     {
       "src": "https://zhiwei.offcn.com/assets/zj/zgjs/dbpk.js",
       "type": ""
     },
     {
-      "inline_script_excerpt": "$(function(){\r\n\t\t\r\n\t\tvar owner = $.cookie('owner');\r\n\t\r\n\t\t$.ajax({\r\n            type:\"get\",\r\n            url:\"/index/country/getonenine\",\r\n            data:{owner:owner},\r\n            dataType:'json',\r\n            success:function(result){\r\n\t\t\t\t$('#get_onenine').html(result);\r\n\t\t\t\t/*$('.courses_list li').each(function(){\r\n\t\t\t\t\tvar num = $('.courses_list li').index($(this))+1,\r\n\t\t\t\t\t\tkc_index = num%4;\r\n\t\t\t\t\t$(this).addClass('courses_li' + num);\r\n\t\t\t\t\tif(num%4==0){\r\n\t\t\t\t\t\t$(this).addClass('marr0');\r\n\t\t\t\t\t}\r\n\t\t\t\t});*/\r\n            }\r\n        });\r\n\t});"
+      "inline_script_excerpt": "$(function(){ var owner = $.cookie('owner'); $.ajax({ type:\"get\", url:\"/index/country/getonenine\", data:{owner:owner}, dataType:'json', success:function(result){ $('#get_onenine').html(result); /*$('.courses_list li').each(function(){ var num = $('.courses_list li').index($(this))+1, kc_index = num%4; $(this).addClass('courses_li' + num); if(num%4==0){ $(this).addClass('marr0'); } });*/ } }); });"
     },
     {
-      "inline_script_excerpt": "/*$(function(){\r\n\t\t$.ajax({\r\n            type:\"get\",\r\n            url:\"/index/country/getlogintatus/?stime=1791990667\",\r\n            data:{},\r\n            dataType:'json',\r\n            success:function(result){\r\n\t\t\t\t$('#dlyhid').val(result);\r\n            }\r\n        });\r\n\t});*/\r\n  //跳转zw，lnfsx，lnblb\r\n  function urljump(url,zwcode,zwyear,id){\r\n    //var uid = \"\";\r\n\tvar dlyhid = $(\"#dlyhid\").val();\r\n\tconsole.log(dlyhid);\r\n\tvar tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html'; \r\n    $(\"#url\").val(url);\r\n    $(\"#id\").val(id);\r\n    //检测是否登录\r\n    if(dlyhid==\"\"){\r\n\t  $('.mask,.zgxf_warningt').show();\r\n\t  $(\"#tjurl\").val(tjurl);\r\n\t  return false;\r\n      //window.open('/index/user/login?zwcode=gj&1791990667');\r\n      //return false;\r\n    }else{\r\n      var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html';\r\n\t  //window.location.href=tjurl;//当前窗口打开\t  \r\n      window.open(tjurl);//新窗口打开\r\n    } \r\n  }\r\n  function urllogin(){\r\n      var tjurl = $(\"#tjurl\").val();\r\n\t  window.location.href='/user/login?zw"
+      "inline_script_excerpt": "/*$(function(){ $.ajax({ type:\"get\", url:\"/index/country/getlogintatus/?stime=1791990696\", data:{}, dataType:'json', success:function(result){ $('#dlyhid').val(result); } }); });*/ //跳转zw，lnfsx，lnblb function urljump(url,zwcode,zwyear,id){ //var uid = \"\"; var dlyhid = $(\"#dlyhid\").val(); console.log(dlyhid); var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html'; $(\"#url\").val(url); $(\"#id\").val(id); //检测是否登录 if(dlyhid==\"\"){ $('.mask,.zgxf_warningt').show(); $(\"#tjurl\").val(tjurl); return false; //window.open('/index/user/login?zwcode=gj&1791990696'); //return false; }else{ var tjurl = \"/\"+zwcode+'/'+zwyear+'/'+url+id+'.html'; //window.location.href=tjurl;//当前窗口打开 window.open(tjurl);//新窗口打开 } } function urllogin(){ var tjurl = $(\"#tjurl\").val(); window.location.href='/user/login?zwcode=gj&url='+tjurl; } function urlregister(){ var tjurl = $(\"#tjurl\").val(); window.location.href='/user/register?zwcode=gj&url='+tjurl; }"
     },
     {
       "src": "https://pg-chatn5.bjmantis.net/chat/js/dist/mantis.min.js?8961#66a74e55da13770001f5b1c2",
