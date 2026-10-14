@@ -251,8 +251,28 @@ def main():
         })
     csv_write(OUTPUT_CSV, offcn_rows)
     csv_write(AUDIT_CSV, audit)
+    coverage_by_year = {}
+    for year in range(2021, 2026):
+        year_rows = [r for r in offcn_rows if str(r.get("year", "")) == str(year)]
+        filled = [r for r in year_rows if r.get("approved_count_final") not in ("", None)]
+        sources = {}
+        for r in filled:
+            source = r.get("approved_count_source", "未标注来源") or "未标注来源"
+            sources[source] = sources.get(source, 0) + 1
+        coverage_by_year[str(year)] = {
+            "position_records": len(year_rows),
+            "approved_count_filled": len(filled),
+            "approved_count_missing": len(year_rows) - len(filled),
+            "approved_count_sources": sources,
+        }
+    total_positions = len(offcn_rows)
+    total_approved_filled = sum(1 for r in offcn_rows if r.get("approved_count_final") not in ("", None))
     report = {
         "generated_at": now_iso(),
+        "final_output_total_position_rows": total_positions,
+        "final_output_approved_count_filled": total_approved_filled,
+        "final_output_approved_count_missing": total_positions - total_approved_filled,
+        "final_output_coverage_by_year": coverage_by_year,
         "offcn_original_csv": str(INPUT_CSV),
         "huatu_public_source_url": HUATU_URL,
         "huatu_table_header": headers,
