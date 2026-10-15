@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T00:26:27+00:00",
+  "generated_at": "2026-10-15T00:30:42+00:00",
   "definition": {
     "target_set": "data/hubei_candidates_2027.csv 中筛出的114个湖北目标岗位",
     "time_range": "2021—2025国考报名/资格审查历史数据，不收2026作为已完成年度，不将2027计划招录人数视为报名人数",
@@ -26,20 +26,21 @@
       "canonical_historical_jobs": 501,
       "canonical_jobs_with_approved_count": 501,
       "jobs_by_system": {
-        "其他系统": 162,
+        "其他系统": 138,
         "审计": 4,
         "税务": 309,
+        "金融监管": 24,
         "铁路公安": 26
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 110,
+      "target_pairs_without_match": 4,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 34,
         "T1_同司局同职位_专业明确兼容且本科可报": 15,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 24,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
         "T4_同系统同职能类别_专业明确兼容且本科可报": 1
       }
     },
@@ -48,9 +49,10 @@
       "canonical_historical_jobs": 710,
       "canonical_jobs_with_approved_count": 710,
       "jobs_by_system": {
-        "其他系统": 151,
+        "其他系统": 142,
         "审计": 3,
         "税务": 533,
+        "金融监管": 9,
         "铁路公安": 23
       },
       "target_job_year_pairs": 114,
@@ -69,19 +71,20 @@
       "canonical_historical_jobs": 765,
       "canonical_jobs_with_approved_count": 765,
       "jobs_by_system": {
-        "其他系统": 237,
+        "其他系统": 181,
         "审计": 4,
         "税务": 498,
+        "金融监管": 56,
         "铁路公安": 26
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 110,
+      "target_pairs_without_match": 4,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 51,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 24,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
         "T1_同司局同职位_专业明确兼容且本科可报": 23
       }
     },
@@ -154,20 +157,21 @@
       "canonical_historical_jobs": 501,
       "canonical_jobs_with_approved_count": 501,
       "jobs_by_system": {
-        "其他系统": 162,
+        "其他系统": 138,
         "审计": 4,
         "税务": 309,
+        "金融监管": 24,
         "铁路公安": 26
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 110,
+      "target_pairs_without_match": 4,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 34,
         "T1_同司局同职位_专业明确兼容且本科可报": 15,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 24,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
         "T4_同系统同职能类别_专业明确兼容且本科可报": 1
       }
     },
@@ -176,9 +180,10 @@
       "canonical_historical_jobs": 710,
       "canonical_jobs_with_approved_count": 710,
       "jobs_by_system": {
-        "其他系统": 151,
+        "其他系统": 142,
         "审计": 3,
         "税务": 533,
+        "金融监管": 9,
         "铁路公安": 23
       },
       "target_job_year_pairs": 114,
@@ -197,19 +202,20 @@
       "canonical_historical_jobs": 765,
       "canonical_jobs_with_approved_count": 765,
       "jobs_by_system": {
-        "其他系统": 237,
+        "其他系统": 181,
         "审计": 4,
         "税务": 498,
+        "金融监管": 56,
         "铁路公安": 26
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 110,
+      "target_pairs_without_match": 4,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 51,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 24,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
         "T1_同司局同职位_专业明确兼容且本科可报": 23
       }
     },
