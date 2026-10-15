@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - ".github/workflows/collect-approval-counts.yml"
+      - "scripts/collect_approval_counts_2021_2025.py"
+      - "data/hubei_candidates_2027.csv"
+      - "data/offcn_hubei_tax_2021_2025/**"
   workflow_dispatch:
 
 permissions:
