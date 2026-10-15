@@ -163,11 +163,25 @@ def discover_province_pages(html, year, overview_url):
         if not match:
             continue
         slug = match.group(1).lower()
-        if slug in {"bmrs", "zgrmyh", "hubei"}:
-            # Hubei pages are already fully collected by scrape_years();
+        if slug in {"bmrs", "zgrmyh", "hubei", "search"}:
+            # Hubei pages are collected separately; "search" is a query page, not a province.
             # PBOC separate-recruitment routes are not the national civil-service series.
             continue
         found.append(absolute)
+    found = list(dict.fromkeys(found))
+    # Recent Huatu archive pages can expose only the /search/{year}.html route to a
+    # lightweight requests client even though the public page visibly lists provinces.
+    # Fall back to well-known public province archive paths, then let each HTTP response
+    # decide whether the page is available. No challenge/access-control bypass is attempted.
+    if len(found) < 10:
+        known_slugs = (
+            "anhui", "beijing", "chongqing", "fujian", "gansu", "guangdong", "guangxi",
+            "guizhou", "hainan", "hebei", "heilongjiang", "henan", "hunan", "jiangsu",
+            "jiangxi", "jilin", "liaoning", "neimenggu", "ningxia", "qinghai", "shandong",
+            "shanghai", "shanxi", "shanxisheng", "shaanxi", "sichuan", "tianjin", "xicang",
+            "xinjiang", "yunnan", "zhejiang",
+        )
+        found = [urljoin(overview_url, f"/zw/{slug}/{year}.html") for slug in known_slugs]
     return list(dict.fromkeys(found))
 
 
