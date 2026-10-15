@@ -28,6 +28,7 @@ from urllib3.util.retry import Retry
 
 YEARS = range(2021, 2026)
 OVERVIEW_TEMPLATE = "https://ah.huatu.com/zw/hubei/{year}.html"
+NATIONAL_OVERVIEW_TEMPLATE = "https://ah.huatu.com/zw/{year}.html"
 TARGET_CSV_DEFAULT = Path("data/hubei_candidates_2027.csv")
 OFFCN_CSV_DEFAULT = Path("data/offcn_hubei_tax_2021_2025/offcn_hubei_tax_positions_2021_2025_enriched.csv")
 OUT_DEFAULT = Path("data/approval_counts_2021_2025")
@@ -150,17 +151,64 @@ def discover_department_pages(html, year, overview_url):
     return list(dict.fromkeys(found))
 
 
+def discover_province_pages(html, year, overview_url):
+    """Find province-level overview pages linked from Huatu's national overview."""
+    soup = BeautifulSoup(html, "html.parser")
+    pattern = re.compile(rf"/zw/([^/]+)/{year}\.html$")
+    found = []
+    for anchor in soup.find_all("a", href=True):
+        absolute = urljoin(overview_url, anchor["href"]).split("#", 1)[0]
+        path = urlparse(absolute).path
+        match = pattern.search(path)
+        if not match:
+            continue
+        slug = match.group(1).lower()
+        if slug in {"bmrs", "zgrmyh", "hubei"}:
+            # Hubei pages are already fully collected by scrape_years();
+            # PBOC separate-recruitment routes are not the national civil-service series.
+            continue
+        found.append(absolute)
+    return list(dict.fromkeys(found))
+
+
+def discover_target_department_pages(html, year, province_url):
+    """Only discover fallback pages for target systems; do not crawl unrelated departments."""
+    soup = BeautifulSoup(html, "html.parser")
+    province_match = re.search(r"/zw/([^/]+)/" + str(year) + r"\.html$", urlparse(province_url).path)
+    if not province_match:
+        return []
+    slug = province_match.group(1)
+    pattern = re.compile(rf"/zw/{re.escape(slug)}/{year}_\d+\.html$")
+    keywords = (
+        "国家金融监督管理总局", "中国银行保险监督管理委员会", "银保监", "银行保险监督管理局",
+        "金融监督管理局", "审计署", "中国人民银行", "人民银行",
+    )
+    found = []
+    for anchor in soup.find_all("a", href=True):
+        text = norm(anchor.get_text(" ", strip=True))
+        if not any(keyword in text for keyword in keywords):
+            continue
+        absolute = urljoin(province_url, anchor["href"]).split("#", 1)[0]
+        if pattern.search(urlparse(absolute).path):
+            found.append(absolute)
+    return list(dict.fromkeys(found))
+
+
 def classify_system(text: object) -> str:
     value = norm(text)
     if "国家税务总局" in value or "税务局" in value:
         return "税务"
-    if any(k in value for k in ("国家金融监督管理总局", "中国银行保险监督管理委员会", "银行保险监督管理局", "银保监会", "银保监局", "银保监分局", "银保监", "中国银行业监督管理委员会", "银监会", "银监局", "银监分局")):
+    if any(k in value for k in (
+        "国家金融监督管理总局", "中国银行保险监督管理委员会", "银行保险监督管理局",
+        "银保监会", "银保监局", "银保监分局", "银保监", "中国银行业监督管理委员会",
+        "银监会", "银监局", "银监分局",
+    )):
         return "金融监管"
     if "铁路公安局" in value or "铁路公安处" in value:
         return "铁路公安"
     if "中国人民银行" in value or "人民银行" in value:
         return "人民银行"
-    if "审计署驻武汉特派员办事处" in value:
+    if "审计署" in value or "审计特派员办事处" in value:
         return "审计"
     return "其他系统"
 
@@ -214,6 +262,7 @@ def parse_huatu_page(html, url, year):
                     "applicant_count": to_int(cell("applicant_count")),
                     "approved_count": to_int(cell("approved_count")),
                     "source_platform": "华图",
+                    "data_scope": "湖北本地" if "/zw/hubei/" in urlparse(url).path else "省外全国兜底",
                     "source_url": url,
                     "detail_source_url": detail_url,
                     "fetched_at": now_iso(),
@@ -253,6 +302,7 @@ def load_offcn_rows(path: Path):
             "applicant_count": to_int(row.get("applicant_count_final", row.get("applicant_count_list", ""))),
             "approved_count": to_int(approved),
             "source_platform": "中公",
+            "data_scope": "湖北本地",
             "source_url": norm(row.get("source_url", "")),
             "detail_source_url": norm(row.get("detail_source_url", "")),
             "fetched_at": norm(row.get("fetched_at", "")),
@@ -317,7 +367,7 @@ def same_system(target_system: str, historical: dict) -> bool:
         return True
     # Historical regulatory-system restructuring: CBIRC and NFRA belong to the same comparable system.
     if target_system == "金融监管" and any(k in norm(historical.get("unit", "")) for k in (
-        "中国银行保险监督管理委员会", "银行保险监督管理局", "银保监会")):
+        "中国银行保险监督管理委员会", "银行保险监督管理局", "银保监会", "银保监", "中国银行业监督管理委员会", "银监会", "银监局")):
         return True
     return False
 
@@ -392,6 +442,22 @@ def match_tier(target: dict, hist: dict):
     t_family = title_family(tsys, target.get("招考职位", ""))
     h_family = title_family(hsys if hsys != "其他系统" else tsys, hist.get("position_name", ""))
     strong = major_status == "compatible" and edu_status == "yes"
+    is_national_fallback = norm(hist.get("data_scope", "")) == "省外全国兜底"
+    if is_national_fallback:
+        # Local Hubei T1–T7 matches outrank these national proxies. Only reach this branch
+        # after the relevant historical post has no local compatible match.
+        if strong and t_title == h_title:
+            return (8, "T8_省外全国同系统同职位名称_专业明确兼容且本科可报", "较低")
+        if strong and t_family and t_family == h_family:
+            return (9, "T9_省外全国同系统同职能_专业明确兼容且本科可报", "较低")
+        if strong:
+            return (10, "T10_省外全国同系统专业兼容且本科可报_宽口径背景", "低")
+        if major_status == "unknown" or edu_status == "unknown":
+            if t_title == h_title:
+                return (11, "T11_省外全国同系统同职位但专业学历不完整_背景参考", "低")
+            if t_family and t_family == h_family:
+                return (12, "T12_省外全国同系统同职能但专业学历不完整_背景参考", "低")
+        return None
     if strong and t_unit == h_unit and t_title == h_title:
         return (1, "T1_同司局同职位_专业明确兼容且本科可报", "高")
     if strong and t_unit == h_unit and t_family and t_family == h_family:
@@ -431,7 +497,8 @@ def match_targets(targets, historical):
                     "历史合格人数参考中位数": None, "所选匹配层级": "未找到符合专业/本科条件且可核验的历史可比岗位",
                     "样本数": 0, "样本最小值": None, "样本最大值": None,
                     "样本招录人数合计": 0, "样本历史职位代码": "", "样本来源平台": "",
-                    "来源链接": "", "匹配可信度": "无", "结果解释": "空白/缺数不等于0；需要继续人工检索第三方公开档案。",
+                    "所选样本地域范围": "", "来源链接": "", "匹配可信度": "无",
+                    "结果解释": "空白/缺数不等于0；已检索湖北本地和相关系统全国省外兜底页，仍未找到符合专业/本科条件且可核验的同口径历史岗位。",
                 })
                 continue
             best_tier = min(t[0][0] for t in possible)
@@ -462,6 +529,7 @@ def match_targets(targets, historical):
                 "样本招录人数合计": recruit_sum,
                 "样本历史职位代码": ";".join(codes),
                 "样本来源平台": ";".join(platforms),
+                "所选样本地域范围": ";".join(dict.fromkeys(norm(hist.get("data_scope", "湖北本地")) for _, hist in chosen)),
                 "来源链接": " ; ".join(urls[:20]),
                 "匹配可信度": first_meta[2] if values else "无合格人数值",
                 "结果解释": "该数是所选历史可比岗位的合格人数中位数，不等于2027岗位实际人数。若样本数>1，范围见最小/最大值。" if values else "找到职位字段相似的样本，但这些样本缺少可核验合格人数。",
@@ -478,6 +546,7 @@ def match_targets(targets, historical):
                     "历史合格人数_选用值": hist.get("approved_count_used"),
                     "华图合格人数": hist.get("approved_count_huatu"), "中公合格人数": hist.get("approved_count_offcn"),
                     "采用来源": hist.get("approval_source_used", ""), "来源平台": hist.get("source_platforms_all", hist.get("source_platform", "")),
+                    "历史数据范围": hist.get("data_scope", "湖北本地"),
                     "来源链接": hist.get("source_urls_all", hist.get("source_url", "")),
                     "明细链接": hist.get("detail_source_url", ""),
                     "所选统计样本": "是", "源字段标签": hist.get("approval_field_label", ""),
@@ -525,6 +594,72 @@ def scrape_years(session, years, delay):
     return all_rows, page_audit
 
 
+def scrape_national_fallback(session, years, delay):
+    """Collect only comparable national financial-regulator, audit, and PBOC national-exam pages.
+
+    The national crawl is a low-priority fallback; it never replaces a match found in Hubei.
+    It does not visit the separate PBOC recruitment path (zw/zgrmyh), whose recruitment channel
+    and metric snapshots differ from the national civil-service exam series.
+    """
+    all_rows, audit = [], []
+    blocked_hosts = set()
+    for year in years:
+        national_url = NATIONAL_OVERVIEW_TEMPLATE.format(year=year)
+        national_host = urlparse(national_url).netloc
+        if national_host in blocked_hosts:
+            audit.append({"year": year, "page_type": "national_overview", "url": national_url,
+                          "status": "skipped_after_block", "expected_rows": None, "parsed_rows": 0,
+                          "error": "之前的同站页面触发403/429或验证页，按策略停止请求"})
+            continue
+        html, status, error = fetch_public_html(session, national_url, delay)
+        audit.append({"year": year, "page_type": "national_overview", "url": national_url,
+                      "status": status, "expected_rows": None, "parsed_rows": 0, "error": error})
+        if not html:
+            if status in ("http_403_stopped", "http_429_stopped", "verification_page_stopped"):
+                blocked_hosts.add(national_host)
+            continue
+        province_urls = discover_province_pages(html, year, national_url)
+        audit[-1]["province_pages_discovered"] = len(province_urls)
+        for province_url in province_urls:
+            host = urlparse(province_url).netloc
+            if host in blocked_hosts:
+                audit.append({"year": year, "page_type": "province_overview", "url": province_url,
+                              "status": "skipped_after_block", "expected_rows": None, "parsed_rows": 0,
+                              "error": "之前的同站页面触发403/429或验证页，按策略停止请求"})
+                continue
+            province_html, pstatus, perror = fetch_public_html(session, province_url, delay)
+            audit.append({"year": year, "page_type": "province_overview", "url": province_url,
+                          "status": pstatus, "expected_rows": None, "parsed_rows": 0, "error": perror})
+            if not province_html:
+                if pstatus in ("http_403_stopped", "http_429_stopped", "verification_page_stopped"):
+                    blocked_hosts.add(host)
+                continue
+            department_urls = discover_target_department_pages(province_html, year, province_url)
+            audit[-1]["target_department_pages_discovered"] = len(department_urls)
+            for department_url in department_urls:
+                host = urlparse(department_url).netloc
+                if host in blocked_hosts:
+                    audit.append({"year": year, "page_type": "national_department", "url": department_url,
+                                  "status": "skipped_after_block", "expected_rows": None, "parsed_rows": 0,
+                                  "error": "之前的同站页面触发403/429或验证页，按策略停止请求"})
+                    continue
+                dept_html, dstatus, derror = fetch_public_html(session, department_url, delay)
+                if not dept_html:
+                    audit.append({"year": year, "page_type": "national_department", "url": department_url,
+                                  "status": dstatus, "expected_rows": None, "parsed_rows": 0, "error": derror})
+                    if dstatus in ("http_403_stopped", "http_429_stopped", "verification_page_stopped"):
+                        blocked_hosts.add(host)
+                    continue
+                rows, expected, parse_status = parse_huatu_page(dept_html, department_url, year)
+                for row in rows:
+                    row["data_scope"] = "省外全国兜底"
+                audit.append({"year": year, "page_type": "national_department", "url": department_url,
+                              "status": parse_status, "expected_rows": expected, "parsed_rows": len(rows),
+                              "error": "" if rows else "页面未识别到明确包含岗位代码、用人司局、职位名称和合格人数的表格"})
+                all_rows.extend(rows)
+    return all_rows, audit
+
+
 def summarize_qa(targets, raw_rows, canonical, summaries, conflicts, page_audit, output_dir):
     by_year = {}
     for year in YEARS:
@@ -548,6 +683,7 @@ def summarize_qa(targets, raw_rows, canonical, summaries, conflicts, page_audit,
         "definition": {
             "target_set": "data/hubei_candidates_2027.csv 中筛出的114个湖北目标岗位",
             "time_range": "2021—2025国考报名/资格审查历史数据，不收2026作为已完成年度，不将2027计划招录人数视为报名人数",
+            "geographic_scope": "优先湖北本地历史岗位；只有湖北本地T1–T7均无可核验兼容样本时，才启用华图全国其它省份金融监管/审计/人民银行国考岗位作为T8–T12低优先级兜底。",
             "primary_metric": "岗位级‘合格人数/过审人数/资格审查通过人数’",
             "separate_metrics": ["报名人数", "招录人数"],
             "not_collected_as_primary_metric": ["进面人数", "面试入围人数", "年度省级过审总人数分摊值"],
@@ -556,13 +692,15 @@ def summarize_qa(targets, raw_rows, canonical, summaries, conflicts, page_audit,
         "target_job_year_pairs_expected": len(targets) * len(list(YEARS)),
         "target_job_year_pairs_output": len(summaries),
         "raw_huatu_rows": len(raw_rows),
+        "raw_huatu_rows_by_scope": dict(Counter(r.get("data_scope", "湖北本地") for r in raw_rows)),
         "canonical_historical_job_rows": len(canonical),
         "source_conflict_rows": len(conflicts),
         "all_years": by_year,
         "pages": {
             "page_audit_rows": len(page_audit),
-            "department_pages_ok": sum(1 for r in page_audit if r.get("page_type") == "department" and r.get("status") == "ok"),
-            "department_pages_failed_or_unparsed": sum(1 for r in page_audit if r.get("page_type") == "department" and r.get("status") != "ok"),
+            "department_pages_ok": sum(1 for r in page_audit if r.get("page_type") in ("department", "national_department") and r.get("status") == "ok"),
+            "department_pages_failed_or_unparsed": sum(1 for r in page_audit if r.get("page_type") in ("department", "national_department") and r.get("status") != "ok"),
+            "national_province_overview_pages_ok": sum(1 for r in page_audit if r.get("page_type") == "province_overview" and r.get("status") == "ok"),
         },
         "matching_rules": [
             "T1：同用人司局+同职位名，历史专业要求明确兼容计算机专业或不限，且历史岗位本科可报。",
@@ -570,10 +708,12 @@ def summarize_qa(targets, raw_rows, canonical, summaries, conflicts, page_audit,
             "T3：同系统+同职位名，专业明确兼容且本科可报。",
             "T4：同系统+同职能类别，专业明确兼容且本科可报。",
             "T5：同系统+专业明确兼容且本科可报的较宽口径背景样本。",
-            "T6/T7只在专业或学历字段缺失时作为低可信背景，不冒充严格匹配。",
+            "T6/T7：仅在专业或学历字段缺失时，以湖北本地精确职位或同职能历史样本作为低可信背景。",
+            "T8/T9/T10：只在湖北本地没有符合条件样本时，使用其他省份全国国考同系统同职位/同职能/专业兼容岗位，明确标记为省外兜底，不与湖北本地样本混算。",
+            "T11/T12：仅当全国兜底岗位专业或学历字段缺失时提供背景参考，不冒充严格匹配。",
             "一个目标岗位-年份单元格只采用最高优先级（T数最小）的那一层；多个样本用合格人数中位数，并保存样本数、最小/最大值与逐条来源。",
         ],
-        "source_precedence": "2021—2024税务同岗位：中公已有逐岗位合格/过审人数优先，华图同岗位值并列保留且差异进冲突审计；其他系统及2025税务：华图公开职位表优先；中公只作为补充兜底。",
+        "source_precedence": "第一层：湖北本地国考历史职位的合格人数；2021—2024湖北税务逐岗位值优先中公，华图值保留作交叉核验；2025税务和其它系统优先华图公开职位表。第二层：若湖北本地没有专业/学历兼容样本，仅为金融监管、审计、人民银行检索华图全国其他省份同年国考职位作为T8–T12省外兜底。PBOC单独招聘系列不混入国考统计。",
         "important_caveat": "除T1且样本数为1外，输出是历史可比岗位参考，不是目标2027岗位的真实报名过审人数。空白/无匹配不等于0。第三方公开页面可能是特定时间截面。",
         "by_year": by_year,
         "outputs": [
@@ -590,7 +730,7 @@ def summarize_qa(targets, raw_rows, canonical, summaries, conflicts, page_audit,
 
 
 def main():
-    parser = argparse.ArgumentParser(description="采集并匹配湖北国考2021—2025岗位级过审/合格人数")
+    parser = argparse.ArgumentParser(description="采集并匹配湖北国考2021—2025岗位级过审/合格人数（省外系统兜底）")
     parser.add_argument("--targets", type=Path, default=TARGET_CSV_DEFAULT)
     parser.add_argument("--offcn", type=Path, default=OFFCN_CSV_DEFAULT)
     parser.add_argument("--out", type=Path, default=OUT_DEFAULT)
@@ -612,6 +752,10 @@ def main():
     session = make_session()
     logging.info("目标岗位=%s，目标岗位×年份=%s，年份=%s—%s", len(targets), len(targets) * len(list(years)), args.start_year, args.end_year)
     huatu_rows, page_audit = scrape_years(session, years, args.delay)
+    national_rows, national_audit = scrape_national_fallback(session, years, args.delay)
+    huatu_rows.extend(national_rows)
+    page_audit.extend(national_audit)
+    logging.info("湖北本地华图数据=%s，全国省外兜底数据=%s", len(huatu_rows) - len(national_rows), len(national_rows))
     offcn_rows = load_offcn_rows(args.offcn)
     canonical, conflicts, versions = canonicalize_sources(huatu_rows, offcn_rows)
     summaries, details = match_targets(targets, canonical)
