@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T00:38:44+00:00",
+  "generated_at": "2026-10-15T00:48:26+00:00",
   "definition": {
     "target_set": "data/hubei_candidates_2027.csv 中筛出的114个湖北目标岗位",
     "time_range": "2021—2025国考报名/资格审查历史数据，不收2026作为已完成年度，不将2027计划招录人数视为报名人数",
@@ -18,12 +18,12 @@
   "target_count": 114,
   "target_job_year_pairs_expected": 570,
   "target_job_year_pairs_output": 570,
-  "raw_huatu_rows": 5348,
+  "raw_huatu_rows": 12810,
   "raw_huatu_rows_by_scope": {
     "湖北本地": 3599,
-    "省外全国兜底": 1749
+    "省外全国兜底": 9211
   },
-  "canonical_historical_job_rows": 5347,
+  "canonical_historical_job_rows": 12809,
   "source_conflict_rows": 287,
   "all_years": {
     "2021": {
@@ -76,60 +76,61 @@
       }
     },
     "2023": {
-      "huatu_rows_captured": 765,
-      "canonical_historical_jobs": 765,
-      "canonical_jobs_with_approved_count": 765,
+      "huatu_rows_captured": 1904,
+      "canonical_historical_jobs": 1904,
+      "canonical_jobs_with_approved_count": 1904,
       "jobs_by_system": {
-        "其他系统": 181,
-        "审计": 4,
+        "其他系统": 422,
+        "审计": 32,
         "税务": 498,
-        "金融监管": 56,
-        "铁路公安": 26
+        "金融监管": 919,
+        "铁路公安": 33
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 110,
-      "target_pairs_without_match": 4,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 51,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
         "T5_同系统专业兼容且本科可报_宽口径背景": 24,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
-        "T1_同司局同职位_专业明确兼容且本科可报": 23
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1,
+        "T1_同司局同职位_专业明确兼容且本科可报": 23,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3
       }
     },
     "2024": {
-      "huatu_rows_captured": 768,
-      "canonical_historical_jobs": 768,
-      "canonical_jobs_with_approved_count": 768,
+      "huatu_rows_captured": 3591,
+      "canonical_historical_jobs": 3591,
+      "canonical_jobs_with_approved_count": 3591,
       "jobs_by_system": {
-        "人民银行": 66,
-        "其他系统": 166,
-        "审计": 3,
+        "人民银行": 1730,
+        "其他系统": 235,
+        "审计": 33,
         "税务": 462,
-        "金融监管": 40,
+        "金融监管": 1100,
         "铁路公安": 31
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 113,
-      "target_pairs_without_match": 1,
+      "target_pairs_with_numeric_reference": 114,
+      "target_pairs_without_match": 0,
       "selected_tier_distribution": {
         "T1_同司局同职位_专业明确兼容且本科可报": 38,
         "T2_同司局同职能_专业明确兼容且本科可报": 43,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 21,
         "T5_同系统专业兼容且本科可报_宽口径背景": 11,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1
       }
     },
     "2025": {
-      "huatu_rows_captured": 855,
-      "canonical_historical_jobs": 855,
-      "canonical_jobs_with_approved_count": 855,
+      "huatu_rows_captured": 4355,
+      "canonical_historical_jobs": 4355,
+      "canonical_jobs_with_approved_count": 4355,
       "jobs_by_system": {
-        "人民银行": 59,
-        "其他系统": 160,
-        "审计": 3,
+        "人民银行": 1870,
+        "其他系统": 176,
+        "审计": 22,
         "税务": 537,
-        "金融监管": 78,
+        "金融监管": 1732,
         "铁路公安": 18
       },
       "target_job_year_pairs": 114,
@@ -145,10 +146,10 @@
     }
   },
   "pages": {
-    "page_audit_rows": 289,
-    "department_pages_ok": 214,
+    "page_audit_rows": 603,
+    "department_pages_ok": 440,
     "department_pages_failed_or_unparsed": 0,
-    "national_province_overview_pages_ok": 65
+    "national_province_overview_pages_ok": 150
   },
   "matching_rules": [
     "T1：同用人司局+同职位名，历史专业要求明确兼容计算机专业或不限，且历史岗位本科可报。",
@@ -214,60 +215,61 @@
       }
     },
     "2023": {
-      "huatu_rows_captured": 765,
-      "canonical_historical_jobs": 765,
-      "canonical_jobs_with_approved_count": 765,
+      "huatu_rows_captured": 1904,
+      "canonical_historical_jobs": 1904,
+      "canonical_jobs_with_approved_count": 1904,
       "jobs_by_system": {
-        "其他系统": 181,
-        "审计": 4,
+        "其他系统": 422,
+        "审计": 32,
         "税务": 498,
-        "金融监管": 56,
-        "铁路公安": 26
+        "金融监管": 919,
+        "铁路公安": 33
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 110,
-      "target_pairs_without_match": 4,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 51,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
         "T5_同系统专业兼容且本科可报_宽口径背景": 24,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
-        "T1_同司局同职位_专业明确兼容且本科可报": 23
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1,
+        "T1_同司局同职位_专业明确兼容且本科可报": 23,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3
       }
     },
     "2024": {
-      "huatu_rows_captured": 768,
-      "canonical_historical_jobs": 768,
-      "canonical_jobs_with_approved_count": 768,
+      "huatu_rows_captured": 3591,
+      "canonical_historical_jobs": 3591,
+      "canonical_jobs_with_approved_count": 3591,
       "jobs_by_system": {
-        "人民银行": 66,
-        "其他系统": 166,
-        "审计": 3,
+        "人民银行": 1730,
+        "其他系统": 235,
+        "审计": 33,
         "税务": 462,
-        "金融监管": 40,
+        "金融监管": 1100,
         "铁路公安": 31
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 113,
-      "target_pairs_without_match": 1,
+      "target_pairs_with_numeric_reference": 114,
+      "target_pairs_without_match": 0,
       "selected_tier_distribution": {
         "T1_同司局同职位_专业明确兼容且本科可报": 38,
         "T2_同司局同职能_专业明确兼容且本科可报": 43,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 21,
         "T5_同系统专业兼容且本科可报_宽口径背景": 11,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1
       }
     },
     "2025": {
-      "huatu_rows_captured": 855,
-      "canonical_historical_jobs": 855,
-      "canonical_jobs_with_approved_count": 855,
+      "huatu_rows_captured": 4355,
+      "canonical_historical_jobs": 4355,
+      "canonical_jobs_with_approved_count": 4355,
       "jobs_by_system": {
-        "人民银行": 59,
-        "其他系统": 160,
-        "审计": 3,
+        "人民银行": 1870,
+        "其他系统": 176,
+        "审计": 22,
         "税务": 537,
-        "金融监管": 78,
+        "金融监管": 1732,
         "铁路公安": 18
       },
       "target_job_year_pairs": 114,
