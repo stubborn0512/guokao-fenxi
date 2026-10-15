@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-10-15T00:30:42+00:00",
+  "generated_at": "2026-10-15T00:38:44+00:00",
   "definition": {
     "target_set": "data/hubei_candidates_2027.csv 中筛出的114个湖北目标岗位",
     "time_range": "2021—2025国考报名/资格审查历史数据，不收2026作为已完成年度，不将2027计划招录人数视为报名人数",
+    "geographic_scope": "优先湖北本地历史岗位；只有湖北本地T1–T7均无可核验兼容样本时，才启用华图全国其它省份金融监管/审计/人民银行国考岗位作为T8–T12低优先级兜底。",
     "primary_metric": "岗位级‘合格人数/过审人数/资格审查通过人数’",
     "separate_metrics": [
       "报名人数",
@@ -17,53 +18,61 @@
   "target_count": 114,
   "target_job_year_pairs_expected": 570,
   "target_job_year_pairs_output": 570,
-  "raw_huatu_rows": 3599,
-  "canonical_historical_job_rows": 3599,
+  "raw_huatu_rows": 5348,
+  "raw_huatu_rows_by_scope": {
+    "湖北本地": 3599,
+    "省外全国兜底": 1749
+  },
+  "canonical_historical_job_rows": 5347,
   "source_conflict_rows": 287,
   "all_years": {
     "2021": {
-      "huatu_rows_captured": 501,
-      "canonical_historical_jobs": 501,
-      "canonical_jobs_with_approved_count": 501,
+      "huatu_rows_captured": 1112,
+      "canonical_historical_jobs": 1111,
+      "canonical_jobs_with_approved_count": 1111,
       "jobs_by_system": {
-        "其他系统": 138,
-        "审计": 4,
+        "其他系统": 373,
+        "审计": 27,
         "税务": 309,
-        "金融监管": 24,
-        "铁路公安": 26
+        "金融监管": 352,
+        "铁路公安": 50
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 110,
-      "target_pairs_without_match": 4,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 34,
         "T1_同司局同职位_专业明确兼容且本科可报": 15,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
         "T5_同系统专业兼容且本科可报_宽口径背景": 24,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3,
         "T4_同系统同职能类别_专业明确兼容且本科可报": 1
       }
     },
     "2022": {
-      "huatu_rows_captured": 710,
-      "canonical_historical_jobs": 710,
-      "canonical_jobs_with_approved_count": 710,
+      "huatu_rows_captured": 1848,
+      "canonical_historical_jobs": 1848,
+      "canonical_jobs_with_approved_count": 1848,
       "jobs_by_system": {
-        "其他系统": 142,
-        "审计": 3,
+        "人民银行": 3,
+        "其他系统": 349,
+        "审计": 30,
         "税务": 533,
-        "金融监管": 9,
+        "金融监管": 910,
         "铁路公安": 23
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T3_同系统同职位名称_专业明确兼容且本科可报": 26,
         "T2_同司局同职能_专业明确兼容且本科可报": 40,
         "T1_同司局同职位_专业明确兼容且本科可报": 20,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 11,
+        "T10_省外全国同系统专业兼容且本科可报_宽口径背景": 11,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3
       }
     },
     "2023": {
@@ -136,9 +145,10 @@
     }
   },
   "pages": {
-    "page_audit_rows": 111,
-    "department_pages_ok": 106,
-    "department_pages_failed_or_unparsed": 0
+    "page_audit_rows": 289,
+    "department_pages_ok": 214,
+    "department_pages_failed_or_unparsed": 0,
+    "national_province_overview_pages_ok": 65
   },
   "matching_rules": [
     "T1：同用人司局+同职位名，历史专业要求明确兼容计算机专业或不限，且历史岗位本科可报。",
@@ -146,55 +156,61 @@
     "T3：同系统+同职位名，专业明确兼容且本科可报。",
     "T4：同系统+同职能类别，专业明确兼容且本科可报。",
     "T5：同系统+专业明确兼容且本科可报的较宽口径背景样本。",
-    "T6/T7只在专业或学历字段缺失时作为低可信背景，不冒充严格匹配。",
+    "T6/T7：仅在专业或学历字段缺失时，以湖北本地精确职位或同职能历史样本作为低可信背景。",
+    "T8/T9/T10：只在湖北本地没有符合条件样本时，使用其他省份全国国考同系统同职位/同职能/专业兼容岗位，明确标记为省外兜底，不与湖北本地样本混算。",
+    "T11/T12：仅当全国兜底岗位专业或学历字段缺失时提供背景参考，不冒充严格匹配。",
     "一个目标岗位-年份单元格只采用最高优先级（T数最小）的那一层；多个样本用合格人数中位数，并保存样本数、最小/最大值与逐条来源。"
   ],
-  "source_precedence": "2021—2024税务同岗位：中公已有逐岗位合格/过审人数优先，华图同岗位值并列保留且差异进冲突审计；其他系统及2025税务：华图公开职位表优先；中公只作为补充兜底。",
+  "source_precedence": "第一层：湖北本地国考历史职位的合格人数；2021—2024湖北税务逐岗位值优先中公，华图值保留作交叉核验；2025税务和其它系统优先华图公开职位表。第二层：若湖北本地没有专业/学历兼容样本，仅为金融监管、审计、人民银行检索华图全国其他省份同年国考职位作为T8–T12省外兜底。PBOC单独招聘系列不混入国考统计。",
   "important_caveat": "除T1且样本数为1外，输出是历史可比岗位参考，不是目标2027岗位的真实报名过审人数。空白/无匹配不等于0。第三方公开页面可能是特定时间截面。",
   "by_year": {
     "2021": {
-      "huatu_rows_captured": 501,
-      "canonical_historical_jobs": 501,
-      "canonical_jobs_with_approved_count": 501,
+      "huatu_rows_captured": 1112,
+      "canonical_historical_jobs": 1111,
+      "canonical_jobs_with_approved_count": 1111,
       "jobs_by_system": {
-        "其他系统": 138,
-        "审计": 4,
+        "其他系统": 373,
+        "审计": 27,
         "税务": 309,
-        "金融监管": 24,
-        "铁路公安": 26
+        "金融监管": 352,
+        "铁路公安": 50
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 110,
-      "target_pairs_without_match": 4,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T2_同司局同职能_专业明确兼容且本科可报": 34,
         "T1_同司局同职位_专业明确兼容且本科可报": 15,
         "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
         "T5_同系统专业兼容且本科可报_宽口径背景": 24,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 4,
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 1,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3,
         "T4_同系统同职能类别_专业明确兼容且本科可报": 1
       }
     },
     "2022": {
-      "huatu_rows_captured": 710,
-      "canonical_historical_jobs": 710,
-      "canonical_jobs_with_approved_count": 710,
+      "huatu_rows_captured": 1848,
+      "canonical_historical_jobs": 1848,
+      "canonical_jobs_with_approved_count": 1848,
       "jobs_by_system": {
-        "其他系统": 142,
-        "审计": 3,
+        "人民银行": 3,
+        "其他系统": 349,
+        "审计": 30,
         "税务": 533,
-        "金融监管": 9,
+        "金融监管": 910,
         "铁路公安": 23
       },
       "target_job_year_pairs": 114,
-      "target_pairs_with_numeric_reference": 89,
-      "target_pairs_without_match": 25,
+      "target_pairs_with_numeric_reference": 111,
+      "target_pairs_without_match": 3,
       "selected_tier_distribution": {
         "T3_同系统同职位名称_专业明确兼容且本科可报": 26,
         "T2_同司局同职能_专业明确兼容且本科可报": 40,
         "T1_同司局同职位_专业明确兼容且本科可报": 20,
-        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
-        "T5_同系统专业兼容且本科可报_宽口径背景": 3
+        "T8_省外全国同系统同职位名称_专业明确兼容且本科可报": 11,
+        "T10_省外全国同系统专业兼容且本科可报_宽口径背景": 11,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 3
       }
     },
     "2023": {
