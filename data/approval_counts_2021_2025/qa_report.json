@@ -1,0 +1,271 @@
+{
+  "generated_at": "2026-10-15T00:26:27+00:00",
+  "definition": {
+    "target_set": "data/hubei_candidates_2027.csv 中筛出的114个湖北目标岗位",
+    "time_range": "2021—2025国考报名/资格审查历史数据，不收2026作为已完成年度，不将2027计划招录人数视为报名人数",
+    "primary_metric": "岗位级‘合格人数/过审人数/资格审查通过人数’",
+    "separate_metrics": [
+      "报名人数",
+      "招录人数"
+    ],
+    "not_collected_as_primary_metric": [
+      "进面人数",
+      "面试入围人数",
+      "年度省级过审总人数分摊值"
+    ]
+  },
+  "target_count": 114,
+  "target_job_year_pairs_expected": 570,
+  "target_job_year_pairs_output": 570,
+  "raw_huatu_rows": 3599,
+  "canonical_historical_job_rows": 3599,
+  "source_conflict_rows": 287,
+  "all_years": {
+    "2021": {
+      "huatu_rows_captured": 501,
+      "canonical_historical_jobs": 501,
+      "canonical_jobs_with_approved_count": 501,
+      "jobs_by_system": {
+        "其他系统": 162,
+        "审计": 4,
+        "税务": 309,
+        "铁路公安": 26
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T2_同司局同职能_专业明确兼容且本科可报": 34,
+        "T1_同司局同职位_专业明确兼容且本科可报": 15,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T4_同系统同职能类别_专业明确兼容且本科可报": 1
+      }
+    },
+    "2022": {
+      "huatu_rows_captured": 710,
+      "canonical_historical_jobs": 710,
+      "canonical_jobs_with_approved_count": 710,
+      "jobs_by_system": {
+        "其他系统": 151,
+        "审计": 3,
+        "税务": 533,
+        "铁路公安": 23
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 26,
+        "T2_同司局同职能_专业明确兼容且本科可报": 40,
+        "T1_同司局同职位_专业明确兼容且本科可报": 20,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3
+      }
+    },
+    "2023": {
+      "huatu_rows_captured": 765,
+      "canonical_historical_jobs": 765,
+      "canonical_jobs_with_approved_count": 765,
+      "jobs_by_system": {
+        "其他系统": 237,
+        "审计": 4,
+        "税务": 498,
+        "铁路公安": 26
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T2_同司局同职能_专业明确兼容且本科可报": 51,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T1_同司局同职位_专业明确兼容且本科可报": 23
+      }
+    },
+    "2024": {
+      "huatu_rows_captured": 768,
+      "canonical_historical_jobs": 768,
+      "canonical_jobs_with_approved_count": 768,
+      "jobs_by_system": {
+        "人民银行": 66,
+        "其他系统": 166,
+        "审计": 3,
+        "税务": 462,
+        "金融监管": 40,
+        "铁路公安": 31
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 113,
+      "target_pairs_without_match": 1,
+      "selected_tier_distribution": {
+        "T1_同司局同职位_专业明确兼容且本科可报": 38,
+        "T2_同司局同职能_专业明确兼容且本科可报": 43,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 21,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 11,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+      }
+    },
+    "2025": {
+      "huatu_rows_captured": 855,
+      "canonical_historical_jobs": 855,
+      "canonical_jobs_with_approved_count": 855,
+      "jobs_by_system": {
+        "人民银行": 59,
+        "其他系统": 160,
+        "审计": 3,
+        "税务": 537,
+        "金融监管": 78,
+        "铁路公安": 18
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 113,
+      "target_pairs_without_match": 1,
+      "selected_tier_distribution": {
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
+        "T2_同司局同职能_专业明确兼容且本科可报": 49,
+        "T1_同司局同职位_专业明确兼容且本科可报": 17,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 11,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+      }
+    }
+  },
+  "pages": {
+    "page_audit_rows": 111,
+    "department_pages_ok": 106,
+    "department_pages_failed_or_unparsed": 0
+  },
+  "matching_rules": [
+    "T1：同用人司局+同职位名，历史专业要求明确兼容计算机专业或不限，且历史岗位本科可报。",
+    "T2：同用人司局+同职能类别，专业明确兼容且本科可报。",
+    "T3：同系统+同职位名，专业明确兼容且本科可报。",
+    "T4：同系统+同职能类别，专业明确兼容且本科可报。",
+    "T5：同系统+专业明确兼容且本科可报的较宽口径背景样本。",
+    "T6/T7只在专业或学历字段缺失时作为低可信背景，不冒充严格匹配。",
+    "一个目标岗位-年份单元格只采用最高优先级（T数最小）的那一层；多个样本用合格人数中位数，并保存样本数、最小/最大值与逐条来源。"
+  ],
+  "source_precedence": "2021—2024税务同岗位：中公已有逐岗位合格/过审人数优先，华图同岗位值并列保留且差异进冲突审计；其他系统及2025税务：华图公开职位表优先；中公只作为补充兜底。",
+  "important_caveat": "除T1且样本数为1外，输出是历史可比岗位参考，不是目标2027岗位的真实报名过审人数。空白/无匹配不等于0。第三方公开页面可能是特定时间截面。",
+  "by_year": {
+    "2021": {
+      "huatu_rows_captured": 501,
+      "canonical_historical_jobs": 501,
+      "canonical_jobs_with_approved_count": 501,
+      "jobs_by_system": {
+        "其他系统": 162,
+        "审计": 4,
+        "税务": 309,
+        "铁路公安": 26
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T2_同司局同职能_专业明确兼容且本科可报": 34,
+        "T1_同司局同职位_专业明确兼容且本科可报": 15,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T4_同系统同职能类别_专业明确兼容且本科可报": 1
+      }
+    },
+    "2022": {
+      "huatu_rows_captured": 710,
+      "canonical_historical_jobs": 710,
+      "canonical_jobs_with_approved_count": 710,
+      "jobs_by_system": {
+        "其他系统": 151,
+        "审计": 3,
+        "税务": 533,
+        "铁路公安": 23
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 26,
+        "T2_同司局同职能_专业明确兼容且本科可报": 40,
+        "T1_同司局同职位_专业明确兼容且本科可报": 20,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3
+      }
+    },
+    "2023": {
+      "huatu_rows_captured": 765,
+      "canonical_historical_jobs": 765,
+      "canonical_jobs_with_approved_count": 765,
+      "jobs_by_system": {
+        "其他系统": 237,
+        "审计": 4,
+        "税务": 498,
+        "铁路公安": 26
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 89,
+      "target_pairs_without_match": 25,
+      "selected_tier_distribution": {
+        "T2_同司局同职能_专业明确兼容且本科可报": 51,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 12,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 25,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 3,
+        "T1_同司局同职位_专业明确兼容且本科可报": 23
+      }
+    },
+    "2024": {
+      "huatu_rows_captured": 768,
+      "canonical_historical_jobs": 768,
+      "canonical_jobs_with_approved_count": 768,
+      "jobs_by_system": {
+        "人民银行": 66,
+        "其他系统": 166,
+        "审计": 3,
+        "税务": 462,
+        "金融监管": 40,
+        "铁路公安": 31
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 113,
+      "target_pairs_without_match": 1,
+      "selected_tier_distribution": {
+        "T1_同司局同职位_专业明确兼容且本科可报": 38,
+        "T2_同司局同职能_专业明确兼容且本科可报": 43,
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 21,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 11,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+      }
+    },
+    "2025": {
+      "huatu_rows_captured": 855,
+      "canonical_historical_jobs": 855,
+      "canonical_jobs_with_approved_count": 855,
+      "jobs_by_system": {
+        "人民银行": 59,
+        "其他系统": 160,
+        "审计": 3,
+        "税务": 537,
+        "金融监管": 78,
+        "铁路公安": 18
+      },
+      "target_job_year_pairs": 114,
+      "target_pairs_with_numeric_reference": 113,
+      "target_pairs_without_match": 1,
+      "selected_tier_distribution": {
+        "T3_同系统同职位名称_专业明确兼容且本科可报": 36,
+        "T2_同司局同职能_专业明确兼容且本科可报": 49,
+        "T1_同司局同职位_专业明确兼容且本科可报": 17,
+        "T5_同系统专业兼容且本科可报_宽口径背景": 11,
+        "未找到符合专业/本科条件且可核验的历史可比岗位": 1
+      }
+    }
+  },
+  "outputs": [
+    "data/approval_counts_2021_2025/hubei_historical_positions_source_versions.csv",
+    "data/approval_counts_2021_2025/hubei_historical_positions_canonical.csv",
+    "data/approval_counts_2021_2025/target_114_approval_counts_2021_2025.csv",
+    "data/approval_counts_2021_2025/target_114_approval_match_details.csv",
+    "data/approval_counts_2021_2025/scrape_pages_audit.csv",
+    "data/approval_counts_2021_2025/source_conflicts_audit.csv"
+  ]
+}
