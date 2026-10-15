@@ -154,7 +154,7 @@ def classify_system(text: object) -> str:
     value = norm(text)
     if "国家税务总局" in value or "税务局" in value:
         return "税务"
-    if any(k in value for k in ("国家金融监督管理总局", "中国银行保险监督管理委员会", "银行保险监督管理局", "银保监会")):
+    if any(k in value for k in ("国家金融监督管理总局", "中国银行保险监督管理委员会", "银行保险监督管理局", "银保监会", "银保监局", "银保监分局", "银保监", "中国银行业监督管理委员会", "银监会", "银监局", "银监分局")):
         return "金融监管"
     if "铁路公安局" in value or "铁路公安处" in value:
         return "铁路公安"
